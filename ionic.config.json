@@ -1,0 +1,7 @@
+{
+  "name": "LiftMeApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
