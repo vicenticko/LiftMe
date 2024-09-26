@@ -1,0 +1,55 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Bienvenido</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" style="--background: url('assets/images/fondo-login.png') no-repeat center center / cover;">
+
+  <div style="display: flex; justify-content: center; margin-top: 90px;">
+    <ion-img src="assets/images/logo.png" alt="Logo" style="width: 150px; max-width: 100%; height: auto;"></ion-img>
+  </div>
+
+  <ion-card style="margin-top: 70px; background-color: black; color: white;">
+    <ion-card-header style="color: white;">Inicio de Sesión</ion-card-header>
+
+    <ion-card-content>
+      <ion-input
+        [(ngModel)]="email"
+        type="email"
+        placeholder="Correo Electrónico"
+        clearInput
+        fill="outline">
+      </ion-input>
+
+      <br>
+
+      <ion-input
+        [(ngModel)]="password"
+        type="password"
+        placeholder="Contraseña"
+        clearInput
+        fill="outline">
+      </ion-input>
+
+      <br>
+
+      <ion-button (click)="login()" size="block" style="--background: rgb(159,183,64,255);">INGRESAR</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <p class="ion-text-center" style="color: rgb(0, 0, 0);">
+    No tienes cuenta?, regístrate <a routerLink="/registro">AQUÍ</a>
+  </p>
+
+  <p class="ion-text-center">
+    <a routerLink="/recuperar">¿Olvidaste tu Contraseña?</a>
+  </p>
+</ion-content>
+
+
+
+
+
+
+

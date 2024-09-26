@@ -1,0 +1,27 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Recuperar Contraseña</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" style="--background: url('assets/images/fondo-login.png') no-repeat center center / cover;">
+  <ion-card style="background-color: black; color: white;">
+    <ion-card-header style="color: white;">Recuperación de Contraseña</ion-card-header>
+    <ion-card-content>
+      <ion-input
+        [(ngModel)]="email"
+        type="email"
+        placeholder="Ingresa tu correo electrónico"
+        clearInput
+        fill="outline"
+      ></ion-input>
+      <br>
+      <ion-button (click)="presentAlert()" size="block" style="--background: rgb(159,183,64,255);">
+        Enviar Código de Verificación
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
