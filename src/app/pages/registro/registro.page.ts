@@ -35,7 +35,12 @@ export class RegistroPage implements OnInit {
       contraseña: new FormControl('', [Validators.required, Validators.minLength(6)]),
       confirmarContraseña: new FormControl('', [Validators.required]),
       nombre_usuario: new FormControl('', [Validators.required]),
-      tiene_auto: new FormControl('',[Validators.required])
+      tiene_auto: new FormControl('', [Validators.required]),
+
+      // Nuevos campos añadidos
+      marca_auto: new FormControl(''), // Campo para la marca del auto
+      patente_auto: new FormControl(''), // Campo para la patente del auto
+      cantidad_asientos: new FormControl('', [Validators.min(1)]), // Campo para la cantidad de asientos
     }, { validators: this.matchingPasswords('contraseña', 'confirmarContraseña') });
   }
 
@@ -89,6 +94,13 @@ export class RegistroPage implements OnInit {
     }
     if (this.Usuario.hasError('notMatching')) {
       return 'Las contraseñas no coinciden.';
+    }
+    if (this.Usuario.get('tiene_auto')?.hasError('required')) {
+      return 'Debes indicar si tienes auto.';
+    }
+    // Añadir mensajes de error para los nuevos campos si es necesario
+    if (this.Usuario.get('cantidad_asientos')?.hasError('required')) {
+      return 'La cantidad de asientos es requerida.';
     }
     return 'Por favor, completa el formulario correctamente.';
   }

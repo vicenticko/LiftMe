@@ -8,8 +8,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" style="--background: url('assets/images/fondo-login.png') no-repeat center center / cover;">
-
-  <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+  <div style="display: flex; justify-content: center; align-items: center; height: auto;">
     <ion-card class="transparent-card" style="padding: 20px; width: 90%; max-width: 400px; background: rgba(0, 0, 0, 0.7); border-radius: 20px; color: white;">
       <form [formGroup]="Usuario" (ngSubmit)="registro()">
 
@@ -61,11 +60,43 @@
           <ion-label color="danger">Las contraseñas no coinciden.</ion-label>
         </ion-item>
 
+        <!-- Pregunta de "Tiene Auto?" con radios alineados horizontalmente -->
+        <ion-item class="input-item" style="display: flex; align-items: center;">
+          <ion-label>Tiene Auto?</ion-label>
+          <ion-radio-group formControlName="tiene_auto" style="display: flex; justify-content: space-between; margin-left: 20px;">
+            <ion-item lines="none">
+              <ion-label>Sí</ion-label>
+              <ion-radio slot="start" value="si"></ion-radio>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label>No</ion-label>
+              <ion-radio slot="start" value="no"></ion-radio>
+            </ion-item>
+          </ion-radio-group>
+        </ion-item>
+
+        <!-- Formulario adicional para la información del auto -->
+        <div *ngIf="Usuario.get('tiene_auto')?.value === 'si'" style="margin-top: 20px;">
+          <ion-item class="input-item">
+            <ion-label position="floating" style="margin-bottom: 10px;">Marca del Auto</ion-label>
+            <ion-input formControlName="marca_auto" type="text" placeholder="Ingresa la marca del auto"></ion-input>
+          </ion-item>
+
+          <ion-item class="input-item">
+            <ion-label position="floating" style="margin-bottom: 10px;">Patente del Auto</ion-label>
+            <ion-input formControlName="patente_auto" type="text" placeholder="ABCD12"></ion-input>
+          </ion-item>
+
+          <ion-item class="input-item">
+            <ion-label position="floating" style="margin-bottom: 10px;">Cantidad de Asientos</ion-label>
+            <ion-input formControlName="cantidad_asientos" type="number" placeholder="Ingresa la cantidad de asientos"></ion-input>
+          </ion-item>
+        </div>
+
         <ion-button type="submit" [disabled]="Usuario.invalid" size="block" style="--background: rgb(159,183,64,255); margin-top: 20px;">
           REGISTRAR
         </ion-button>
       </form>
     </ion-card>
   </div>
-
 </ion-content>
