@@ -1,14 +1,71 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Registro de Usuario </ion-title>
+    <ion-title>Registro de usuario</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-card>
+<ion-content [fullscreen]="true" style="--background: url('assets/images/fondo-login.png') no-repeat center center / cover;">
 
-  </ion-card>
+  <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+    <ion-card class="transparent-card" style="padding: 20px; width: 90%; max-width: 400px; background: rgba(0, 0, 0, 0.7); border-radius: 20px; color: white;">
+      <form [formGroup]="Usuario" (ngSubmit)="registro()">
+
+        <ion-item class="input-item">
+          <ion-label position="floating" style="margin-bottom: 10px;">RUT</ion-label>
+          <ion-input formControlName="rut" type="text" placeholder="Ingresa tu RUT"></ion-input>
+        </ion-item>
+
+        <ion-item class="input-item">
+          <ion-label position="floating" style="margin-bottom: 10px;">Nombre</ion-label>
+          <ion-input formControlName="nombre" type="text" placeholder="Ingresa tu nombre"></ion-input>
+        </ion-item>
+
+        <ion-item class="input-item">
+          <ion-label position="floating" style="margin-bottom: 10px;">Apellido</ion-label>
+          <ion-input formControlName="apellido" type="text" placeholder="Ingresa tu apellido"></ion-input>
+        </ion-item>
+
+        <ion-item class="input-item">
+          <ion-label>Género</ion-label>
+          <ion-select formControlName="genero">
+            <ion-select-option value="masculino">Masculino</ion-select-option>
+            <ion-select-option value="femenino">Femenino</ion-select-option>
+            <ion-select-option value="otro">Otro</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item class="input-item">
+          <ion-label>Fecha de Nacimiento</ion-label>
+          <ion-datetime presentation="date" formControlName="fecha_nacimiento" [max]="fechaMaxima" [min]="fechaMinima"></ion-datetime>
+        </ion-item>
+
+        <ion-item class="input-item">
+          <ion-label position="floating" style="margin-bottom: 10px;">Correo Electrónico</ion-label>
+          <ion-input formControlName="correo_electronico" type="email" placeholder="Ingresa tu correo"></ion-input>
+        </ion-item>
+
+        <ion-item class="input-item">
+          <ion-label position="floating" style="margin-bottom: 10px;">Contraseña</ion-label>
+          <ion-input formControlName="contraseña" type="password" placeholder="Ingresa tu contraseña"></ion-input>
+        </ion-item>
+
+        <ion-item class="input-item">
+          <ion-label position="floating" style="margin-bottom: 10px;">Confirmar Contraseña</ion-label>
+          <ion-input formControlName="confirmarContraseña" type="password" placeholder="Confirma tu contraseña"></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="Usuario.errors?.['notMatching'] && (Usuario.get('confirmarContraseña')?.touched || Usuario.get('contraseña')?.touched)">
+          <ion-label color="danger">Las contraseñas no coinciden.</ion-label>
+        </ion-item>
+
+        <ion-button type="submit" [disabled]="Usuario.invalid" size="block" style="--background: rgb(159,183,64,255); margin-top: 20px;">
+          REGISTRAR
+        </ion-button>
+      </form>
+    </ion-card>
+  </div>
+
 </ion-content>

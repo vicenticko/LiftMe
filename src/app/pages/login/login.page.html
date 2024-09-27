@@ -10,46 +10,40 @@
     <ion-img src="assets/images/logo.png" alt="Logo" style="width: 150px; max-width: 100%; height: auto;"></ion-img>
   </div>
 
-  <ion-card style="margin-top: 70px; background-color: black; color: white;">
-    <ion-card-header style="color: white;">Inicio de Sesión</ion-card-header>
+    <ion-card style="margin-top: 70px; background-color: rgb(0, 0, 0, 0.7); color: white;">
+      <ion-card-header style="color: white;">Inicio de Sesión</ion-card-header>
 
-    <ion-card-content>
-      <ion-input
-        [(ngModel)]="email"
-        type="email"
-        placeholder="Correo Electrónico"
-        clearInput
-        fill="outline">
-      </ion-input>
+      <ion-card-content>
+        <ion-input
+          [(ngModel)]="email"
+          type="email"
+          placeholder="Correo Electrónico"
+          clearInput
+          fill="outline">
+        </ion-input>
 
-      <br>
+        <br>
 
-      <ion-input
-        [(ngModel)]="password"
-        type="password"
-        placeholder="Contraseña"
-        clearInput
-        fill="outline">
-      </ion-input>
+        <ion-input
+          [(ngModel)]="password"
+          type="password"
+          placeholder="Contraseña"
+          clearInput
+          fill="outline">
+        </ion-input>
 
-      <br>
+        <br>
 
-      <ion-button (click)="login()" size="block" style="--background: rgb(159,183,64,255);">INGRESAR</ion-button>
-    </ion-card-content>
-  </ion-card>
+        <ion-button (click)="login()" size="block" style="--background: rgb(159,183,64,255);">INGRESAR</ion-button>
+      </ion-card-content>
+    </ion-card>
 
-  <p class="ion-text-center" style="color: rgb(0, 0, 0);">
-    No tienes cuenta?, regístrate <a routerLink="/registro">AQUÍ</a>
-  </p>
+    <p class="ion-text-center" style="color: rgb(0, 0, 0);">
+      No tienes cuenta?, regístrate <a routerLink="/registro">AQUÍ</a>
+    </p>
 
-  <p class="ion-text-center">
-    <a routerLink="/recuperar">¿Olvidaste tu Contraseña?</a>
-  </p>
+    <p class="ion-text-center">
+      <a routerLink="/recuperar">¿Olvidaste tu Contraseña?</a>
+    </p>
+
 </ion-content>
-
-
-
-
-
-
-
