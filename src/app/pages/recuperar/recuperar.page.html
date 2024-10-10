@@ -8,20 +8,22 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" style="--background: url('assets/images/fondo-login.png') no-repeat center center / cover;">
-  <ion-card style="background-color: rgb(0, 0, 0, 0.7); color: white; margin-top: 250px;">
-    <ion-card-header style="color: white;">Recuperación de Contraseña</ion-card-header>
-    <ion-card-content>
-      <ion-input
-        [(ngModel)]="email"
-        type="email"
-        placeholder="Ingresa tu correo electrónico"
-        clearInput
-        fill="outline"
-      ></ion-input>
-      <br>
-      <ion-button (click)="presentAlert()" size="block" style="--background: rgb(159,183,64,255);">
-        Enviar Código de Verificación
-      </ion-button>
-    </ion-card-content>
-  </ion-card>
+  <div style="display: flex; justify-content: center; align-items: center; height: 600px;">
+    <ion-card style="background-color: rgb(0, 0, 0, 0.7); color: white;">
+      <ion-card-header style="color: white;">Recuperación de Contraseña</ion-card-header>
+      <ion-card-content>
+        <ion-input
+          style="width: 500px;"
+          type="email"
+          placeholder="Ingresa tu correo electrónico"
+          clearInput
+          fill="outline"
+        ></ion-input>
+        <br>
+        <ion-button size="block" style="--background: rgb(159,183,64,255);">
+          Enviar Código de Verificación
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>

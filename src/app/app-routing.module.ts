@@ -23,15 +23,11 @@ const routes: Routes = [
     path: 'recuperar',
     loadChildren: () => import('./pages/recuperar/recuperar.module').then( m => m.RecuperarPageModule)
   },
-  {
-    path: 'error404', //<----Siempre al final
+  /*{
+    path: '**', //<----Siempre al final
     loadChildren: () => import('./pages/error404/error404.module').then( m => m.Error404PageModule)
-  },
-  {
-    path: '**', // Ruta comodín que captura cualquier URL no existente
-    redirectTo: 'error404', // Redirige a la página de error 404
-    pathMatch: 'full' // Hace coincidir toda la URL
-  },
+  }*/
+
 ];
 
 @NgModule({
