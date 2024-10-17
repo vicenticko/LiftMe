@@ -22,7 +22,7 @@ export class RegistroPage implements OnInit {
     tiene_auto: new FormControl('no',[Validators.required]),
     patente: new FormControl('', [Validators.pattern("^[A-Z]{2} [A-Z]{2} [0-9]{2}$")]),
     capacidad_asientos: new FormControl('', [Validators.required, Validators.min(1), Validators.max(8)]),
-  })
+  });
 
   constructor(private router: Router) { }
 

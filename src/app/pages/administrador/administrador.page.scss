@@ -1,0 +1,18 @@
+.transparent-card {
+    background-color: rgba(0, 0, 0, 0.7); /* Negro con 60% de opacidad */
+    border-radius: 10px;  /* Bordes redondeados */
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  /* Sombra para dar más profundidad */
+    color: white;  /* Texto en blanco para mayor legibilidad */
+  }
+  
+  ion-item {
+    --color: white; /* Cambia el color de los ítems a blanco */
+    --background: transparent; /* Fondo transparente en los inputs */
+    --border-color: rgba(255, 255, 255, 0.5); /* Bordes de los inputs */
+  }
+  
+  ion-input {
+    color: white; /* Texto en blanco dentro de los inputs */
+  }
+  
