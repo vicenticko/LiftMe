@@ -10,6 +10,7 @@
 
       <ion-card-content>
         <ion-input
+          [(ngModel)]="email"
           style="width: 500px;"
           type="email"
           placeholder="Correo Electrónico"
@@ -20,6 +21,7 @@
         <br>
 
         <ion-input 
+          [(ngModel)]="password"
           style="width: 500px;"
           type="password"
           placeholder="Contraseña"
@@ -29,7 +31,7 @@
 
         <br>
 
-        <ion-button size="block" style="--background: rgb(159,183,64,255);">INGRESAR</ion-button>
+        <ion-button (click)="login()" size="block" style="--background: rgb(159,183,64,255);">INGRESAR</ion-button>
       </ion-card-content>
     </ion-card>
   </div>
