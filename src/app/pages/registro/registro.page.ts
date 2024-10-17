@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registro',
@@ -14,19 +15,24 @@ export class RegistroPage implements OnInit {
     apellido: new FormControl('', [Validators.required, Validators.pattern("[A-Za-z]{3,20}")]),
     genero: new FormControl('', [Validators.required]), 
     fecha_nacimiento: new FormControl('', [Validators.required]),
-    correo_electronico: new FormControl('', [Validators.required, Validators.email]),
+    correo_electronico: new FormControl('',[Validators.required, Validators.pattern("[a-zA-Z0-9.]+(@duocuc.cl)")]),
     contraseña: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(16)]),
     confirmarContraseña: new FormControl('', [Validators.required]),
 
-    tiene_auto: new FormControl(false),
-    patente: new FormControl('', []),
-    capacidad_asientos: new FormControl('', []),
-
+    tiene_auto: new FormControl('no',[Validators.required]),
+    patente: new FormControl('', [Validators.pattern("^[A-Z]{2} [A-Z]{2} [0-9]{2}$")]),
+    capacidad_asientos: new FormControl('', [Validators.required, Validators.min(1), Validators.max(8)]),
   })
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
+  }
+
+  public registrar():void{
+    console.log(this.usuario.value);
+    alert("Usuario Registrado!");
+    this.router.navigate(['/login']);
   }
 
   validarRUT(): ValidatorFn {

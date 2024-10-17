@@ -11,82 +11,74 @@
   <div style="display: flex; justify-content: center; align-items: center; height: auto;">
     <ion-card class="transparent-card" style="padding: 20px; width: 90%; max-width: 400px; background: rgba(0, 0, 0, 0.7); border-radius: 20px; color: white;">
 
-      <ion-item class="input-item">
-        <ion-label position="floating" style="margin-bottom: 10px;">RUT</ion-label>
-        <ion-input type="text" placeholder="Ingresa tu RUT"></ion-input>
-      </ion-item>
-
-      <ion-item class="input-item">
-        <ion-label position="floating" style="margin-bottom: 10px;">Nombre</ion-label>
-        <ion-input type="text" placeholder="Ingresa tu nombre"></ion-input>
-      </ion-item>
-
-      <ion-item class="input-item">
-        <ion-label position="floating" style="margin-bottom: 10px;">Apellido</ion-label>
-        <ion-input type="text" placeholder="Ingresa tu apellido"></ion-input>
-      </ion-item>
-
-      <ion-item class="input-item">
-        <ion-label>Género</ion-label>
-        <ion-select>
-          <ion-select-option value="masculino">Masculino</ion-select-option>
-          <ion-select-option value="femenino">Femenino</ion-select-option>
-          <ion-select-option value="otro">Otro</ion-select-option>
-        </ion-select>
-      </ion-item>
-
-      <ion-item>
-        <ion-input type="date" labelPlacement="stacked" label="Fecha nacimiento"></ion-input>
-      </ion-item>
-
-      <ion-item class="input-item">
-        <ion-label position="floating" style="margin-bottom: 10px;">Correo Electrónico</ion-label>
-        <ion-input type="email" placeholder="Ingresa tu correo"></ion-input>
-      </ion-item>
-
-      <ion-item class="input-item">
-        <ion-label position="floating" style="margin-bottom: 10px;">Contraseña</ion-label>
-        <ion-input type="password" placeholder="Ingresa tu contraseña"></ion-input>
-      </ion-item>
-
-      <ion-item class="input-item">
-        <ion-label position="floating" style="margin-bottom: 10px;">Confirmar Contraseña</ion-label>
-        <ion-input type="password" placeholder="Confirma tu contraseña"></ion-input>
-      </ion-item>
-
-      <!-- Campo tiene_auto con radio button -->
-      <ion-item>
-        <ion-label>Tiene auto</ion-label>
-        <ion-radio-group style="display: flex; flex-direction: row; justify-content: space-around;">
-          <ion-item lines="none" style="flex-direction: row; align-items: center;">
-            <ion-radio slot="start" value="si"></ion-radio>
-            <ion-label>Sí</ion-label>
-          </ion-item>
-          <ion-item lines="none" style="flex-direction: row; align-items: center;">
-            <ion-radio slot="start" value="no"></ion-radio>
-            <ion-label>No</ion-label>
-          </ion-item>
-        </ion-radio-group>
-      </ion-item>
+      <form [formGroup]="usuario" (ngSubmit)="registrar()">
       
+        <ion-item class="input-item">
+          <ion-input formControlName="rut" type="text" labelPlacement="stacked" label="RUT" placeholder="Ingresa tu RUT"></ion-input>
+        </ion-item>
 
-      <!-- Campo de patente que acepta letras y números -->
-      <ion-item class="input-item">
-        <ion-label position="floating" style="margin-bottom: 10px;">Patente</ion-label>
-        <ion-input type="text" placeholder="Ingresa la patente" inputmode="text"></ion-input>
-      </ion-item>
+        <ion-item class="input-item">
+          <ion-input formControlName="nombre" type="text" labelPlacement="stacked" label="Nombre" placeholder="Ingresa tu nombre"></ion-input>
+        </ion-item>
 
-      <!-- Campo de capacidad de asientos que solo acepta números -->
-      <ion-item class="input-item">
-        <ion-label position="floating" style="margin-bottom: 10px;">Capacidad de asientos</ion-label>
-        <ion-input type="number" placeholder="Ingresa capacidad de asientos" inputmode="numeric"></ion-input>
-      </ion-item>
+        <ion-item class="input-item">
+          <ion-input formControlName="apellido" type="text" labelPlacement="stacked" label="Apellido" placeholder="Ingresa tu apellido"></ion-input>
+        </ion-item>
+
+        <ion-item class="input-item">
+          <ion-select formControlName="genero" labelPlacement="stacked" label="Genero">
+            <ion-select-option value="masculino">Masculino</ion-select-option>
+            <ion-select-option value="femenino">Femenino</ion-select-option>
+            <ion-select-option value="otro">Otro</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-input formControlName="fecha_nacimiento" type="date" labelPlacement="stacked" label="Fecha nacimiento"></ion-input>
+        </ion-item>
+
+        <ion-item class="input-item">
+          <ion-input formControlName="correo_electronico" type="email" labelPlacement="stacked" label="Correo Electronico" placeholder="Ingresa tu correo"></ion-input>
+        </ion-item>
+
+        <ion-item class="input-item">
+          <ion-input formControlName="contraseña" type="password" labelPlacement="stacked" label="Contraseña" placeholder="Ingresa tu contraseña"></ion-input>
+        </ion-item>
+
+        <ion-item class="input-item">
+          <ion-input formControlName="confirmarContraseña" type="password" labelPlacement="stacked" label="Confirmar Contraseña" placeholder="Confirma tu contraseña"></ion-input>
+        </ion-item>
+
+        <!-- Campo tiene_auto con radio button -->
+        <ion-item>
+          <ion-label>Tiene auto</ion-label>
+          <ion-radio-group formControlName="tiene_auto" value="no" style="display: flex; flex-direction: row; justify-content: space-around;">
+            <ion-item lines="none" style="flex-direction: row; align-items: center;">
+              <ion-radio slot="start" value="si"></ion-radio>
+              <ion-label>Sí</ion-label>
+            </ion-item>
+            <ion-item lines="none" style="flex-direction: row; align-items: center;">
+              <ion-radio slot="start" value="no" checked></ion-radio>
+              <ion-label>No</ion-label>
+            </ion-item>
+          </ion-radio-group>
+        </ion-item>
+        
+
+        <!-- Campo de patente que acepta letras y números -->
+        <ion-item class="input-item">
+          <ion-input formControlName="patente" type="text" labelPlacement="stacked" label="Patente" placeholder="Ingresa la patente" inputmode="text"></ion-input>
+        </ion-item>
+
+        <!-- Campo de capacidad de asientos que solo acepta números -->
+        <ion-item class="input-item">
+          <ion-input formControlName="capacidad_asientos" type="number" labelPlacement="stacked" label="Capacidad de Asientos" placeholder="Ingresa capacidad de asientos" inputmode="numeric"></ion-input>
+        </ion-item>
 
 
-      <ion-button type="submit" size="block" style="--background: rgb(159,183,64,255); margin-top: 20px;">
-        REGISTRAR
-      </ion-button>
+        <ion-button [disabled]="usuario.invalid" type="submit" size="block" style="--background: rgb(159,183,64,255); margin-top: 20px;">REGISTRAR</ion-button>
 
+      </form>
     </ion-card>
   </div>
 </ion-content>
