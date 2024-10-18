@@ -9,11 +9,11 @@
       <ion-card-header style="color: white;">Inicio de Sesión</ion-card-header>
 
       <ion-card-content>
-        <ion-input [(ngModel)]="email" style="width: 500px;" type="email" label="Correo" labelPlacement="stacked" clearInput fill="outline"></ion-input>
+        <ion-input [(ngModel)]="email" style="width: 500px;" type="email" label="Correo" labelPlacement="stacked" fill="outline"></ion-input>
 
         <br>
 
-        <ion-input  [(ngModel)]="password" style="width: 500px;" type="password" label="Contraseña" labelPlacement="stacked" clearInput fill="outline"></ion-input>
+        <ion-input  [(ngModel)]="password" style="width: 500px;" type="password" label="Contraseña" labelPlacement="stacked" fill="outline"></ion-input>
 
         <br>
 
@@ -21,7 +21,10 @@
         
       </ion-card-content>
       
+      
+      
     </ion-card>
+    
   </div>
   <p class="ion-text-center" style="color: rgb(0, 0, 0);">
     No tienes cuenta?, regístrate <a routerLink="/registro">AQUÍ</a>

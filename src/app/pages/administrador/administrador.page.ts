@@ -16,8 +16,8 @@ export class AdministradorPage implements OnInit {
     genero: new FormControl('', [Validators.required]), 
     fecha_nacimiento: new FormControl('', [Validators.required]),
     correo_electronico: new FormControl('',[Validators.required, Validators.pattern("[a-zA-Z0-9.]+(@duocuc.cl)")]),
-    contraseña: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(16)]),
-    confirmarContraseña: new FormControl('', [Validators.required]),
+    contrasena: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(16)]),
+    confirmarContrasena: new FormControl('', [Validators.required]),
 
     tiene_auto: new FormControl('no',[Validators.required]),
     patente: new FormControl('', [Validators.pattern("^[A-Z]{2}[A-Z]{2}[0-9]{2}$")]),
@@ -40,7 +40,7 @@ export class AdministradorPage implements OnInit {
       return;
     }
     
-    if(this.usuario.controls.contraseña.value != this.usuario.controls.confirmarContraseña.value){
+    if(this.usuario.controls.contrasena.value != this.usuario.controls.confirmarContrasena.value){
       alert("Las contraseñas no coinciden!");
       return;
     }

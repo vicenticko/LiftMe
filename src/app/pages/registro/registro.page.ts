@@ -17,13 +17,14 @@ export class RegistroPage implements OnInit {
     genero: new FormControl('', [Validators.required]), 
     fecha_nacimiento: new FormControl('', [Validators.required]),
     correo_electronico: new FormControl('',[Validators.required, Validators.pattern("[a-zA-Z0-9.]+(@duocuc.cl)")]),
-    contraseña: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(16)]),
-    confirmarContraseña: new FormControl('', [Validators.required]),
+    contrasena: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(16)]),
+    confirmarContrasena: new FormControl('', [Validators.required]),
+    tipo_usuario: new FormControl('Alumno'),
 
     tiene_auto: new FormControl('no',[Validators.required]),
     patente: new FormControl('', [Validators.pattern("^[A-Z]{2}[A-Z]{2}[0-9]{2}$")]),
     capacidad_asientos: new FormControl('', [Validators.min(1), Validators.max(8)]),
-  }, { validators: this.matchingPasswords('contraseña', 'confirmarContraseña')});
+  });
 
   constructor(private router: Router, private usuarioService: UsuarioService) { }
 
@@ -37,7 +38,7 @@ export class RegistroPage implements OnInit {
       return;
     }
     
-    if(this.usuario.controls.contraseña.value != this.usuario.controls.confirmarContraseña.value){
+    if(this.usuario.controls.contrasena.value != this.usuario.controls.confirmarContrasena.value){
       alert("Las contraseñas no coinciden!");
       return;
     }
@@ -89,14 +90,6 @@ export class RegistroPage implements OnInit {
     if (resto === 11) return '0';
     if (resto === 10) return 'K';
     return resto.toString();
-  }
-
-  matchingPasswords(passwordKey: string, confirmPasswordKey: string): ValidatorFn {
-    return (formGroup: AbstractControl): ValidationErrors | null => {
-      const password = formGroup.get(passwordKey)?.value;
-      const confirmPassword = formGroup.get(confirmPasswordKey)?.value;
-      return password === confirmPassword ? null : { notMatching: true };
-    };
   }
 
 }

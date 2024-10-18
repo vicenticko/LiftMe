@@ -46,4 +46,8 @@ export class UsuarioService {
     return true;
   }
 
+  public login(correo: string, contrasena: string){
+    return this.usuarios.find(elemento=> elemento.correo==correo && elemento.contrasena==contrasena);
+  }
+
 }
