@@ -21,8 +21,8 @@ export class RegistroPage implements OnInit {
 
     tiene_auto: new FormControl('no',[Validators.required]),
     patente: new FormControl('', [Validators.pattern("^[A-Z]{2}[A-Z]{2}[0-9]{2}$")]),
-    capacidad_asientos: new FormControl('', [Validators.required, Validators.min(1), Validators.max(8)]),
-  });
+    capacidad_asientos: new FormControl('', [Validators.min(1), Validators.max(8)]),
+  }, { validators: this.matchingPasswords('contraseña', 'confirmarContraseña') });
 
   constructor(private router: Router) { }
 
@@ -64,4 +64,13 @@ export class RegistroPage implements OnInit {
     if (resto === 10) return 'K';
     return resto.toString();
   }
+
+  matchingPasswords(passwordKey: string, confirmPasswordKey: string): ValidatorFn {
+    return (formGroup: AbstractControl): ValidationErrors | null => {
+      const password = formGroup.get(passwordKey)?.value;
+      const confirmPassword = formGroup.get(confirmPasswordKey)?.value;
+      return password === confirmPassword ? null : { notMatching: true };
+    };
+  }
+
 }

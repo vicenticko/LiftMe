@@ -8,7 +8,8 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" style="--background: url('assets/images/fondo-login.png') no-repeat center center / cover;">
-  <div style="display: flex; justify-content: center; align-items: center; height: auto;">
+  <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: auto;">
+
     <ion-card class="transparent-card" style="padding: 20px; width: 90%; max-width: 400px; background: rgba(0, 0, 0, 0.7); border-radius: 20px; color: white;">
 
       <form [formGroup]="usuario" (ngSubmit)="registrar()">
@@ -45,9 +46,7 @@
           <ion-input formControlName="contraseña" type="password" labelPlacement="stacked" label="Contraseña" placeholder="Ingresa tu contraseña"></ion-input>
         </ion-item>
 
-        <ion-item class="input-item">
-          <ion-input formControlName="confirmarContraseña" type="password" labelPlacement="stacked" label="Confirmar Contraseña" placeholder="Confirma tu contraseña"></ion-input>
-        </ion-item>
+        
 
         <!-- Campo tiene_auto con radio button -->
         <ion-item>
@@ -66,22 +65,39 @@
         
 
         <!-- Campo de patente que acepta letras y números -->
-        <ion-item class="input-item">
+        <ion-item class="input-item" *ngIf="usuario.get('tiene_auto')?.value === 'si'">
           <ion-input formControlName="patente" type="text" labelPlacement="stacked" label="Patente" placeholder="Ingresa la patente" inputmode="text"></ion-input>
         </ion-item>
 
         <!-- Campo de capacidad de asientos que solo acepta números -->
-        <ion-item class="input-item">
+        <ion-item class="input-item" *ngIf="usuario.get('tiene_auto')?.value === 'si'">
           <ion-input formControlName="capacidad_asientos" type="number" labelPlacement="stacked" label="Capacidad de Asientos" placeholder="Ingresa capacidad de asientos" inputmode="numeric"></ion-input>
         </ion-item>
 
 
         <ion-button [disabled]="usuario.invalid" type="submit" size="block" style="--background: rgb(159,183,64,255); margin-top: 20px;">REGISTRAR ADMIN</ion-button>
-
+        <ion-button (click)="modificar()" size="block" style="--background: rgb(27, 193, 160); margin-top: 20px;">MODIFICAR</ion-button>
+          <ion-button type="reset" size="block" style="--background: rgb(216, 104, 104); margin-top: 20px;">LIMPIAR</ion-button>
       </form>
     </ion-card>
-    <ion-list *ngFor="let usuario of usuarios">
-      <ion-item>{{usuario.rut}} - {{usuario.nombre}}</ion-item>
-    </ion-list>
+    
+    <ion-card *ngFor="let usuario of usuarios" class="transparent-card" style="padding: 20px; width: 90%; max-width: 400px; background: rgba(0, 0, 0, 0.7); border-radius: 20px; color: white;">
+      <ion-list >
+        
+        <ion-item-sliding>
+          <ion-item-options side="start">
+            <ion-item-option (click)="buscar(usuario.rut)" color="warning">Buscar</ion-item-option>
+          </ion-item-options>
+  
+          <ion-item>{{usuario.rut}} - {{usuario.nombre}}</ion-item>
+  
+          <ion-item-options side="end">
+            <ion-item-option (click)="eliminar(usuario.rut)" color="danger">Eliminar</ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+  
+      </ion-list>
+    </ion-card>
+
   </div>
 </ion-content>

@@ -48,6 +48,7 @@
         <ion-item class="input-item">
           <ion-input formControlName="confirmarContraseña" type="password" labelPlacement="stacked" label="Confirmar Contraseña" placeholder="Confirma tu contraseña"></ion-input>
         </ion-item>
+        
 
         <!-- Campo tiene_auto con radio button -->
         <ion-item>
@@ -66,12 +67,12 @@
         
 
         <!-- Campo de patente que acepta letras y números -->
-        <ion-item class="input-item">
+        <ion-item class="input-item" *ngIf="usuario.get('tiene_auto')?.value === 'si'">
           <ion-input formControlName="patente" type="text" labelPlacement="stacked" label="Patente" placeholder="Ingresa la patente" inputmode="text"></ion-input>
         </ion-item>
 
         <!-- Campo de capacidad de asientos que solo acepta números -->
-        <ion-item class="input-item">
+        <ion-item class="input-item" *ngIf="usuario.get('tiene_auto')?.value === 'si'">
           <ion-input formControlName="capacidad_asientos" type="number" labelPlacement="stacked" label="Capacidad de Asientos" placeholder="Ingresa capacidad de asientos" inputmode="numeric"></ion-input>
         </ion-item>
 
@@ -79,8 +80,7 @@
         <ion-button [disabled]="usuario.invalid" type="submit" size="block" style="--background: rgb(159,183,64,255); margin-top: 20px;">REGISTRAR</ion-button>
 
       </form>
-      <p>{{usuario.value | json}}</p>
-      <p>{{usuario.value.nombre}}</p>
+
     </ion-card>
   </div>
 </ion-content>

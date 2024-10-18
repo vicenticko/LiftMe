@@ -19,10 +19,11 @@ export class AdministradorPage implements OnInit {
     contraseña: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(16)]),
 
     tiene_auto: new FormControl('no',[Validators.required]),
-    patente: new FormControl('', [Validators.pattern("^[A-Z]{2} [A-Z]{2} [0-9]{2}$")]),
-    capacidad_asientos: new FormControl('', [Validators.required, Validators.min(1), Validators.max(8)]),
+    patente: new FormControl('', [Validators.pattern("^[A-Z]{2}[A-Z]{2}[0-9]{2}$")]),
+    capacidad_asientos: new FormControl('', [Validators.min(1), Validators.max(8)]),
   });
   usuarios:any[] = [];
+  botonModificar: boolean = true;
 
   constructor(private usuarioService: UsuarioService) { }
 
@@ -65,6 +66,30 @@ export class AdministradorPage implements OnInit {
     if (resto === 11) return '0';
     if (resto === 10) return 'K';
     return resto.toString();
+  }
+
+  buscar(rut_buscar:string){
+    this.usuario.setValue( this.usuarioService.getUsuario(rut_buscar) );
+    this.botonModificar = false;
+  }
+
+  modificar(){
+    var rut_buscar: string = this.usuario.controls.rut.value || "";
+    if(this.usuarioService.updateUsuario( rut_buscar , this.usuario.value)){
+      alert("Usuario modificado con Exito!");
+      this.botonModificar = true;
+      this.usuario.reset();
+    }else{
+      alert("Usuario no Modificado!");
+    }
+  }
+
+  eliminar(rut_eliminar:string){
+    if( this.usuarioService.deleteUsuario(rut_eliminar) ){
+      alert("Usuario eliminado con Exito!")
+    }else{
+      alert("Usuario no Eliminado!")
+    }
   }
 
 }

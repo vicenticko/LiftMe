@@ -9,29 +9,16 @@
       <ion-card-header style="color: white;">Inicio de Sesión</ion-card-header>
 
       <ion-card-content>
-        <ion-input
-          [(ngModel)]="email"
-          style="width: 500px;"
-          type="email"
-          placeholder="Correo Electrónico"
-          clearInput
-          fill="outline">
-        </ion-input>
+        <ion-input [(ngModel)]="email" style="width: 500px;" type="email" label="Correo" labelPlacement="stacked" clearInput fill="outline"></ion-input>
 
         <br>
 
-        <ion-input 
-          [(ngModel)]="password"
-          style="width: 500px;"
-          type="password"
-          placeholder="Contraseña"
-          clearInput
-          fill="outline">
-        </ion-input>
+        <ion-input  [(ngModel)]="password" style="width: 500px;" type="password" label="Contraseña" labelPlacement="stacked" clearInput fill="outline"></ion-input>
 
         <br>
 
         <ion-button (click)="login()" size="block" style="--background: rgb(159,183,64,255);">INGRESAR</ion-button>
+        
       </ion-card-content>
       
     </ion-card>
