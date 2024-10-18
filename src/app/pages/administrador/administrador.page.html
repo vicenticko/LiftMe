@@ -1,16 +1,7 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>administrador</ion-title>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true" style="--background: url('assets/images/fondo-login.png') no-repeat center center / cover;">
   <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: auto;">
 
-    <ion-card class="transparent-card" style="padding: 20px; width: 90%; max-width: 400px; background: rgba(0, 0, 0, 0.7); border-radius: 20px; color: white;">
+    <ion-card class="transparent-card" style="margin-top: 65px; padding: 20px; width: 90%; max-width: 400px; background: rgba(0, 0, 0, 0.7); border-radius: 20px; color: white;">
 
       <form [formGroup]="usuario" (ngSubmit)="registrar()">
       
@@ -46,7 +37,9 @@
           <ion-input formControlName="contraseña" type="password" labelPlacement="stacked" label="Contraseña" placeholder="Ingresa tu contraseña"></ion-input>
         </ion-item>
 
-        
+        <ion-item class="input-item">
+          <ion-input formControlName="confirmarContraseña" type="password" labelPlacement="stacked" label="Confirmar Contraseña" placeholder="Confirma tu contraseña"></ion-input>
+        </ion-item>
 
         <!-- Campo tiene_auto con radio button -->
         <ion-item>
@@ -74,8 +67,15 @@
           <ion-input formControlName="capacidad_asientos" type="number" labelPlacement="stacked" label="Capacidad de Asientos" placeholder="Ingresa capacidad de asientos" inputmode="numeric"></ion-input>
         </ion-item>
 
+        <ion-item class="input-item">
+          <ion-select formControlName="tipo_usuario" labelPlacement="stacked" label="Tipo Usuario">
+            <ion-select-option>Administrador</ion-select-option>
+            <ion-select-option>Usuario</ion-select-option>
+          </ion-select>
+        </ion-item>
 
-        <ion-button [disabled]="usuario.invalid" type="submit" size="block" style="--background: rgb(159,183,64,255); margin-top: 20px;">REGISTRAR ADMIN</ion-button>
+
+        <ion-button [disabled]="usuario.invalid" type="submit" size="block" style="--background: rgb(159,183,64,255); margin-top: 20px;">REGISTRAR </ion-button>
         <ion-button (click)="modificar()" size="block" style="--background: rgb(27, 193, 160); margin-top: 20px;">MODIFICAR</ion-button>
           <ion-button type="reset" size="block" style="--background: rgb(216, 104, 104); margin-top: 20px;">LIMPIAR</ion-button>
       </form>

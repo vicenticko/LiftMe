@@ -17,10 +17,13 @@ export class AdministradorPage implements OnInit {
     fecha_nacimiento: new FormControl('', [Validators.required]),
     correo_electronico: new FormControl('',[Validators.required, Validators.pattern("[a-zA-Z0-9.]+(@duocuc.cl)")]),
     contraseña: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(16)]),
+    confirmarContraseña: new FormControl('', [Validators.required]),
 
     tiene_auto: new FormControl('no',[Validators.required]),
     patente: new FormControl('', [Validators.pattern("^[A-Z]{2}[A-Z]{2}[0-9]{2}$")]),
     capacidad_asientos: new FormControl('', [Validators.min(1), Validators.max(8)]),
+
+    tipo_usuario: new FormControl('', [Validators.required])
   });
   usuarios:any[] = [];
   botonModificar: boolean = true;
@@ -31,12 +34,34 @@ export class AdministradorPage implements OnInit {
     this.usuarios = this.usuarioService.getUsuarios();
   }
 
-  registrar(){
-    if( this.usuarioService.createUsuario(this.usuario.value) ){
-      alert("Usuario creado con Exito!");
+  public registrar():void{
+    if( !this.validarEdad18(this.usuario.controls.fecha_nacimiento.value || "") ){
+      alert("Deebe ser mayor de 18 años para registrarse!");
+      return;
+    }
+    
+    if(this.usuario.controls.contraseña.value != this.usuario.controls.confirmarContraseña.value){
+      alert("Las contraseñas no coinciden!");
+      return;
+    }
+
+    if(this.usuarioService.createUsuario(this.usuario.value)){
       this.usuario.reset();
+      alert("Usuario creado con éxito!")
+    }
+  }
+
+  validarEdad18(fecha_nacimiento: string){
+    var edad = 0;
+    if(fecha_nacimiento){
+      const fecha_date = new Date(fecha_nacimiento);
+      const timeDiff = Math.abs(Date.now() - fecha_date.getTime());
+      edad = Math.floor((timeDiff / (1000 * 3600 * 24))/365);
+    }
+    if(edad>=18){
+      return true;
     }else{
-      alert("No se pudo Crear el Usuario!");
+      return false;
     }
   }
 
