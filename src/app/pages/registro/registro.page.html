@@ -79,6 +79,8 @@
         <ion-button [disabled]="usuario.invalid" type="submit" size="block" style="--background: rgb(159,183,64,255); margin-top: 20px;">REGISTRAR</ion-button>
 
       </form>
+      <p>{{usuario.value | json}}</p>
+      <p>{{usuario.value.nombre}}</p>
     </ion-card>
   </div>
 </ion-content>

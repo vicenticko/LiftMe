@@ -20,7 +20,7 @@ export class RegistroPage implements OnInit {
     confirmarContraseña: new FormControl('', [Validators.required]),
 
     tiene_auto: new FormControl('no',[Validators.required]),
-    patente: new FormControl('', [Validators.pattern("^[A-Z]{2} [A-Z]{2} [0-9]{2}$")]),
+    patente: new FormControl('', [Validators.pattern("^[A-Z]{2}[A-Z]{2}[0-9]{2}$")]),
     capacidad_asientos: new FormControl('', [Validators.required, Validators.min(1), Validators.max(8)]),
   });
 
@@ -28,6 +28,8 @@ export class RegistroPage implements OnInit {
 
   ngOnInit() {
   }
+  
+  
 
   public registrar():void{
     console.log(this.usuario.value);

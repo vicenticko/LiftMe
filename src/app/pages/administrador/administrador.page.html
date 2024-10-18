@@ -80,6 +80,8 @@
 
       </form>
     </ion-card>
-    
+    <ion-list *ngFor="let usuario of usuarios">
+      <ion-item>{{usuario.rut}} - {{usuario.nombre}}</ion-item>
+    </ion-list>
   </div>
 </ion-content>
