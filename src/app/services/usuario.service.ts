@@ -15,13 +15,13 @@ export class UsuarioService {
   async init(){
     await this.storage.create();
     let admin = {
-      "rut": "16666666-6",
-      "nombre": "alambrito",
-      "fecha_nacimiento": "1990-03-24",
+      "rut": "20839463-0",
+      "nombre": "admin",
+      "fecha_nacimiento": "2000-09-14",
       "genero": "Masculino",
       "correo": "admin@duocuc.cl",
-      "contrasena": "Admin123.",
-      "valida_contrasena": "Admin123.",
+      "contrasena": "admin123456",
+      "valida_contrasena": "admin123456",
       "tiene_equipo": "no",
       "nombre_equipo": "",
       "tipo_usuario": "Administrador"
