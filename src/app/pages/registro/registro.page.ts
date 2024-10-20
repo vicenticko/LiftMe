@@ -50,6 +50,7 @@ export class RegistroPage implements OnInit {
     }
   }
 
+  
   validarEdad18(fecha_nacimiento: string){
     var edad = 0;
     if(fecha_nacimiento){

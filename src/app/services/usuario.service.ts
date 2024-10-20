@@ -6,7 +6,22 @@ import { Injectable } from '@angular/core';
 export class UsuarioService {
 
   //acá podemos crear variables:
-  usuarios: any[] = [];
+  usuarios: any[] = [
+    {
+      "rut": 16666666,
+      "nombre": "alambrito",
+      "apellido": "",
+      "genero": "Masculino",
+      "fecha_nacimiento": "1990-03-24",
+      "correo_electronico": "admin@duocuc.cl",
+      "contrasena": "admin123",
+      "confirmarContrasena": "admin123",
+      "tipo_usuario": "Administrador",
+      "tiene_auto": "",
+      "patente": "",
+      "capacidad_asientos":""
+    }
+  ];
 
   constructor() { }
 
@@ -49,5 +64,10 @@ export class UsuarioService {
   public login(correo: string, contrasena: string){
     return this.usuarios.find(elemento=> elemento.correo==correo && elemento.contrasena==contrasena);
   }
+
+  public recuperarUsuario(correo:string){
+    return this.usuarios.find(elemento=> elemento.correo == correo);
+  }
+
 
 }

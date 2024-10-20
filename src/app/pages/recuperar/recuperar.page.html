@@ -13,14 +13,15 @@
       <ion-card-header style="color: white;">Recuperación de Contraseña</ion-card-header>
       <ion-card-content>
         <ion-input
+          [(ngModel)]="email"
           style="width: 500px;"
           type="email"
-          placeholder="Ingresa tu correo electrónico"
+          label="Ingresa tu Correo" labelPlacement="stacked"
           clearInput
           fill="outline"
         ></ion-input>
         <br>
-        <ion-button size="block" style="--background: rgb(159,183,64,255);">
+        <ion-button (click)="recuperar()" size="block" style="--background: rgb(159,183,64,255);">
           Enviar Código de Verificación
         </ion-button>
       </ion-card-content>
