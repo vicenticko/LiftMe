@@ -32,7 +32,7 @@ export class RegistroPage implements OnInit {
   }
   
 
-  public registrar():void{
+  public async registrar(){
     if( !this.validarEdad18(this.usuario.controls.fecha_nacimiento.value || "") ){
       alert("Debe ser mayor de 18 años para registrarse!");
       return;
@@ -43,7 +43,7 @@ export class RegistroPage implements OnInit {
       return;
     }
 
-    if(this.usuarioService.createUsuario(this.usuario.value)){
+    if(await this.usuarioService.createUsuario(this.usuario.value)){
       this.router.navigate(['/login']);
       this.usuario.reset();
       alert("Usuario creado con éxito!")

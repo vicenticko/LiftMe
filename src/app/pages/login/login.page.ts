@@ -18,12 +18,13 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
-  login(){
-    if(this.usuarioService.login(this.email,this.password)){
+  async login(){
+    if(await this.usuarioService.login(this.email,this.password)){
       this.router.navigate(['/home']);
     }else{
       alert("Correo o Contraseña Incorrectos!");
     }
   }
-
+  
+  
 }

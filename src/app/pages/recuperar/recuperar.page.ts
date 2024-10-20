@@ -16,8 +16,8 @@ export class RecuperarPage implements OnInit {
   ngOnInit() {
   }
 
-  recuperar(){
-    if(this.usuarioService.recuperarUsuario(this.email)){
+  async recuperar(){
+    if(await this.usuarioService.recuperarUsuario(this.email)){
       alert("Revisa tu correo para encontrar la nueva contraseña!")
       this.router.navigate(['/login']);
     }else{

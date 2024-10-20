@@ -30,11 +30,11 @@ export class AdministradorPage implements OnInit {
 
   constructor(private usuarioService: UsuarioService) { }
 
-  ngOnInit() {
-    this.usuarios = this.usuarioService.getUsuarios();
+  async ngOnInit() {
+    this.usuarios = await this.usuarioService.getUsuarios();
   }
 
-  public registrar():void{
+  async registrar(){
     if( !this.validarEdad18(this.usuario.controls.fecha_nacimiento.value || "") ){
       alert("Deebe ser mayor de 18 años para registrarse!");
       return;
@@ -45,9 +45,12 @@ export class AdministradorPage implements OnInit {
       return;
     }
 
-    if(this.usuarioService.createUsuario(this.usuario.value)){
-      this.usuario.reset();
+    if(await this.usuarioService.createUsuario(this.usuario.value)){
       alert("Usuario creado con éxito!")
+      this.usuario.reset();
+      this.usuarios = await this.usuarioService.getUsuarios();
+    }else{
+      alert("No se pudo crear el Usuario");
     }
   }
 
@@ -93,27 +96,29 @@ export class AdministradorPage implements OnInit {
     return resto.toString();
   }
 
-  buscar(rut_buscar:string){
-    this.usuario.setValue( this.usuarioService.getUsuario(rut_buscar) );
+  async buscar(rut_buscar:string){
+    this.usuario.setValue(await this.usuarioService.getUsuario(rut_buscar) );
     this.botonModificar = false;
   }
 
-  modificar(){
+  async modificar(){
     var rut_buscar: string = this.usuario.controls.rut.value || "";
-    if(this.usuarioService.updateUsuario( rut_buscar , this.usuario.value)){
+    if(await this.usuarioService.updateUsuario( rut_buscar , this.usuario.value)){
       alert("Usuario modificado con Exito!");
       this.botonModificar = true;
       this.usuario.reset();
+      this.usuarios = await this.usuarioService.getUsuarios();
     }else{
       alert("Usuario no Modificado!");
     }
   }
 
-  eliminar(rut_eliminar:string){
-    if( this.usuarioService.deleteUsuario(rut_eliminar) ){
-      alert("Usuario eliminado con Exito!")
+  async eliminar(rut_eliminar:string){
+    if(await this.usuarioService.deleteUsuario(rut_eliminar) ){
+      alert("Usuario eliminado con exito!")
+      this.usuarios = await this.usuarioService.getUsuarios();
     }else{
-      alert("Usuario no Eliminado!")
+      alert("Usuario no eliminado!")
     }
   }
 
