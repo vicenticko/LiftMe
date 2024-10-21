@@ -8,5 +8,13 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" style="--background: url('assets/images/fondo-login.png') no-repeat center center / cover;">
+
+  <ion-input label="Latitud" [(ngModel)]="latitud"></ion-input>
+    <ion-input label="Longitud" [(ngModel)]="longitud"></ion-input>
+    <ion-input label="Dirección" [(ngModel)]="direccion"></ion-input>
+    <ion-input label="Distancia metros" [(ngModel)]="distancia_metros"></ion-input>
+    <ion-input label="Tiempo segundos" [(ngModel)]="tiempo_segundos"></ion-input>
+
   <div id="map_html"></div>
+
 </ion-content>
