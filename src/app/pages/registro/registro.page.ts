@@ -11,7 +11,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 export class RegistroPage implements OnInit {
 
   usuario = new FormGroup({
-    rut: new FormControl('', [Validators.required, Validators.pattern("^[0-9]{7,8}-[0-9Kk]{1}$"), this.validarRUT()]),
+    rut: new FormControl('', [Validators.required, Validators.pattern("[0-9]{7,8}-[0-9Kk]{1}"), this.validarRUT()]),
     nombre: new FormControl('', [Validators.required, Validators.pattern("[A-Za-z]{3,20}")]),
     apellido: new FormControl('', [Validators.required, Validators.pattern("[A-Za-z]{3,20}")]),
     genero: new FormControl('', [Validators.required]), 
@@ -26,7 +26,9 @@ export class RegistroPage implements OnInit {
     capacidad_asientos: new FormControl('', [Validators.min(1), Validators.max(8)]),
   });
 
-  constructor(private router: Router, private usuarioService: UsuarioService) { }
+  constructor(private router: Router, private usuarioService: UsuarioService) {
+    this.usuario.get("rut")?.setValidators([Validators.required,Validators.pattern("[0-9]{7,8}-[0-9kK]{1}"),this.validarRUT()]);
+   }
 
   ngOnInit() {
   }
