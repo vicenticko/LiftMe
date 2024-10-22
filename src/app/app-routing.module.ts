@@ -30,10 +30,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/detalle-reserva/detalle-reserva.module').then( m => m.DetalleReservaPageModule)
   },
 
-  /*{
+  {
     path: '**', //<----Siempre al final
     loadChildren: () => import('./pages/error404/error404.module').then( m => m.Error404PageModule)
-  }*/
+  }
 
 ];
 

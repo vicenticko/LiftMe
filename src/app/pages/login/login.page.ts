@@ -9,9 +9,10 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 })
 export class LoginPage implements OnInit {
 
-  //NgModel:
   email: string = "";
   password: string = "";
+
+  showPassword = false;
 
   constructor(private router: Router, private usuarioService: UsuarioService) { }
 
@@ -26,5 +27,8 @@ export class LoginPage implements OnInit {
     }
   }
   
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
   
 }

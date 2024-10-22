@@ -17,7 +17,7 @@ export class UsuarioService {
     let admin = {
       "rut": "20839463-0",
       "nombre": "admin",
-      "fecha_nacimiento": "2000-09-14",
+      "fecha_nacimiento": "2006-06-06",
       "genero": "Masculino",
       "correo_electronico": "admin@duocuc.cl",
       "contrasena": "admin123456",

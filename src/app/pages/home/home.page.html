@@ -15,19 +15,20 @@
 
     <ion-tab-bar slot="bottom">
 
-      <ion-tab-button tab="reservas" [routerLink]="['/reservas']">
+      <ion-tab-button tab="reservas">
         <ion-icon name="calendar-number-sharp"></ion-icon>
         <ion-label>Reservas</ion-label>
       </ion-tab-button>
 
-      <ion-tab-button tab="perfil" [routerLink]="['/perfil']">
-        <ion-icon name="person-circle-outline"></ion-icon>
-        <ion-label>Perfil</ion-label>
-      </ion-tab-button>
       
-      <ion-tab-button tab="administrador" *ngIf="usuario.tipo_usuario=='Administrador'" [routerLink]="['/administrador']">
+      <ion-tab-button tab="administrador" *ngIf="usuario.tipo_usuario=='Administrador'">
         <ion-icon name="build"></ion-icon>
         <ion-label>Administrar</ion-label>
+      </ion-tab-button>
+      
+      <ion-tab-button tab="perfil">
+        <ion-icon name="person-circle-outline"></ion-icon>
+        <ion-label>Perfil</ion-label>
       </ion-tab-button>
 
     </ion-tab-bar>

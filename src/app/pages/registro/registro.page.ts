@@ -10,13 +10,15 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 })
 export class RegistroPage implements OnInit {
 
+  showPassword = false;
+
   usuario = new FormGroup({
     rut: new FormControl('', [Validators.required, Validators.pattern("[0-9]{7,8}-[0-9Kk]{1}"), this.validarRUT()]),
-    nombre: new FormControl('', [Validators.required, Validators.pattern("[A-Za-z]{3,20}")]),
-    apellido: new FormControl('', [Validators.required, Validators.pattern("[A-Za-z]{3,20}")]),
+    nombre: new FormControl('', [Validators.required, Validators.pattern("^[A-Za-zÑñ]+(\\s[A-Za-zÑñ]+)*$")]),
+    apellido: new FormControl('', [Validators.required, Validators.pattern("^[A-Za-zÑñ]+(\\s[A-Za-zÑñ]+)*$")]),
     genero: new FormControl('', [Validators.required]), 
     fecha_nacimiento: new FormControl('', [Validators.required]),
-    correo_electronico: new FormControl('',[Validators.required, Validators.pattern("[a-zA-Z0-9.]+(@duocuc.cl)")]),
+    correo_electronico: new FormControl('',[Validators.required, Validators.pattern("[A-Za-zÑñ0-9.]+(@duocuc.cl)")]),
     contrasena: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(16)]),
     confirmarContrasena: new FormControl('', [Validators.required]),
     tipo_usuario: new FormControl('Alumno'),
@@ -33,6 +35,7 @@ export class RegistroPage implements OnInit {
   ngOnInit() {
   }
   
+
 
   public async registrar(){
     if( !this.validarEdad18(this.usuario.controls.fecha_nacimiento.value || "") ){
@@ -52,7 +55,10 @@ export class RegistroPage implements OnInit {
     }
   }
 
-  
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
   validarEdad18(fecha_nacimiento: string){
     var edad = 0;
     if(fecha_nacimiento){
