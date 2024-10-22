@@ -19,7 +19,7 @@ export class UsuarioService {
       "nombre": "admin",
       "fecha_nacimiento": "2000-09-14",
       "genero": "Masculino",
-      "correo": "admin@duocuc.cl",
+      "correo_electronico": "admin@duocuc.cl",
       "contrasena": "admin123456",
       "valida_contrasena": "admin123456",
       "tiene_equipo": "no",
@@ -73,9 +73,9 @@ export class UsuarioService {
     return true;
   }
 
-  public async login(correo: string, contrasena: string): Promise<any>{
+  public async login(correo_electronico: string, contrasena: string): Promise<any>{
     let usuarios: any[] = await this.storage.get("usuarios") || [];
-    const usu =  usuarios.find(elemento=> elemento.correo==correo && elemento.contrasena==contrasena);
+    const usu =  usuarios.find(elemento=> elemento.correo_electronico==correo_electronico && elemento.contrasena==contrasena);
     if(usu){
       //localStorage almacena la información SI o SI como String:
       localStorage.setItem("usuario", JSON.stringify(usu) );
@@ -84,9 +84,9 @@ export class UsuarioService {
     return false;
   }
 
-  public async recuperarUsuario(correo:string): Promise<any>{
+  public async recuperarUsuario(correo_electronico:string): Promise<any>{
     let usuarios: any[] = await this.storage.get("usuarios") || [];
-    return usuarios.find(elemento=> elemento.correo == correo);
+    return usuarios.find(elemento=> elemento.correo_electronico == correo_electronico);
   }
 
 }
