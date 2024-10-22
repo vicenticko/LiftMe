@@ -9,6 +9,8 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 })
 export class AdministradorPage implements OnInit {
 
+  showPassword = false;
+
   usuario = new FormGroup({
     rut: new FormControl('', [Validators.required, Validators.pattern("^[0-9]{7,8}-[0-9Kk]{1}$"), this.validarRUT()]),
     nombre: new FormControl('', [Validators.required, Validators.pattern("[A-Za-z]{3,20}")]),
@@ -32,6 +34,10 @@ export class AdministradorPage implements OnInit {
 
   async ngOnInit() {
     this.usuarios = await this.usuarioService.getUsuarios();
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 
   async registrar(){

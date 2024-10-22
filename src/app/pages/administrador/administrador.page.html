@@ -34,7 +34,16 @@
         </ion-item>
 
         <ion-item class="input-item">
-          <ion-input formControlName="contrasena" type="password" labelPlacement="stacked" label="Contraseña" placeholder="Ingresa tu contraseña"></ion-input>
+          <ion-input 
+            formControlName="contrasena" 
+            [type]="showPassword ? 'text' : 'password'" 
+            labelPlacement="stacked" 
+            label="Contraseña" 
+            placeholder="Ingresa tu contraseña">
+          </ion-input>
+          <ion-button fill="clear" slot="end" (click)="togglePasswordVisibility()">
+            <ion-icon [name]="showPassword ? 'eye' : 'eye-off'"></ion-icon>
+          </ion-button>
         </ion-item>
 
         <ion-item class="input-item">
