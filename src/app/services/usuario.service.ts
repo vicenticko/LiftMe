@@ -17,13 +17,15 @@ export class UsuarioService {
     let admin = {
       "rut": "11111111-1",
       "nombre": "admin",
-      "fecha_nacimiento": "2006-06-06",
+      "apellido":"",
       "genero": "Masculino",
+      "fecha_nacimiento": "2006-06-06",
       "correo_electronico": "admin@duocuc.cl",
       "contrasena": "admin123456",
-      "valida_contrasena": "admin123456",
-      "tiene_equipo": "si",
-      "nombre_equipo": "",
+      "confirmarContrasena": "admin123456",
+      "tiene_auto": "no",
+      "patente": "",
+      "capacidad_asientos":"",
       "tipo_usuario": "Administrador"
     };
     await this.createUsuario(admin);

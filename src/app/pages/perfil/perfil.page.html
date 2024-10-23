@@ -21,9 +21,20 @@
       </ion-avatar>
       <input type="file" (change)="onFileSelected($event)" accept="image/*" class="file-input" #fileInput />
     </div>
+
+    <div class="profile-text" style="text-align: center; margin-top: 10px;">
+      <h2 class="black-text">RUT: {{ usuario.rut }}</h2>
+      <h2 class="black-text">Nombre: {{ usuario.nombre }}</h2>
+      <h2 class="black-text">Apellido: {{ usuario.apellido }}</h2>
+      <br>
+      <h2 class="black-text">Correo: {{ usuario.correo_electronico }}</h2>
+      <br>
+      <h2 class="black-text">Tiene Auto?: {{ usuario.tiene_auto }}</h2>
+      <!-- Condicional para mostrar la patente y la capacidad de asientos -->
+      <div *ngIf="usuario.tiene_auto">
+        <h2 class="black-text">Patente: {{ usuario.patente }}</h2>
+        <h2 class="black-text">Capacidad de asientos: {{ usuario.capacidad_asientos }}</h2>
+      </div>
+    </div>
   </div>
-  
-  <p class="black-text">Nombre: {{ usuario.nombre }}</p>
-
-
 </ion-content>
