@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { AlertController } from '@ionic/angular';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
@@ -27,10 +28,11 @@ export class AdministradorPage implements OnInit {
 
     tipo_usuario: new FormControl('', [Validators.required])
   });
-  usuarios:any[] = [];
+
+  usuarios: any[] = [];
   botonModificar: boolean = true;
 
-  constructor(private usuarioService: UsuarioService) { }
+  constructor(private usuarioService: UsuarioService, private alertController: AlertController) { }
 
   async ngOnInit() {
     this.usuarios = await this.usuarioService.getUsuarios();
@@ -40,38 +42,34 @@ export class AdministradorPage implements OnInit {
     this.showPassword = !this.showPassword;
   }
 
-  async registrar(){
-    if( !this.validarEdad18(this.usuario.controls.fecha_nacimiento.value || "") ){
-      alert("Deebe ser mayor de 18 años para registrarse!");
-      return;
-    }
-    
-    if(this.usuario.controls.contrasena.value != this.usuario.controls.confirmarContrasena.value){
-      alert("Las contraseñas no coinciden!");
+  async registrar() {
+    if (!this.validarEdad18(this.usuario.controls.fecha_nacimiento.value || "")) {
+      await this.mostrarAlerta("Error", "Debe ser mayor de 18 años para registrarse!");
       return;
     }
 
-    if(await this.usuarioService.createUsuario(this.usuario.value)){
-      alert("Usuario creado con éxito!")
+    if (this.usuario.controls.contrasena.value !== this.usuario.controls.confirmarContrasena.value) {
+      await this.mostrarAlerta("Error", "Las contraseñas no coinciden!");
+      return;
+    }
+
+    if (await this.usuarioService.createUsuario(this.usuario.value)) {
+      await this.mostrarAlerta("Éxito", "Usuario creado con éxito!");
       this.usuario.reset();
       this.usuarios = await this.usuarioService.getUsuarios();
-    }else{
-      alert("No se pudo crear el Usuario");
+    } else {
+      await this.mostrarAlerta("Error", "No se pudo crear el Usuario");
     }
   }
 
-  validarEdad18(fecha_nacimiento: string){
+  validarEdad18(fecha_nacimiento: string) {
     var edad = 0;
-    if(fecha_nacimiento){
+    if (fecha_nacimiento) {
       const fecha_date = new Date(fecha_nacimiento);
       const timeDiff = Math.abs(Date.now() - fecha_date.getTime());
-      edad = Math.floor((timeDiff / (1000 * 3600 * 24))/365);
+      edad = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
     }
-    if(edad>=18){
-      return true;
-    }else{
-      return false;
-    }
+    return edad >= 18;
   }
 
   validarRUT(): ValidatorFn {
@@ -102,30 +100,39 @@ export class AdministradorPage implements OnInit {
     return resto.toString();
   }
 
-  async buscar(rut_buscar:string){
-    this.usuario.setValue(await this.usuarioService.getUsuario(rut_buscar) );
+  async buscar(rut_buscar: string) {
+    this.usuario.setValue(await this.usuarioService.getUsuario(rut_buscar));
     this.botonModificar = false;
   }
 
-  async modificar(){
+  async modificar() {
     var rut_buscar: string = this.usuario.controls.rut.value || "";
-    if(await this.usuarioService.updateUsuario( rut_buscar , this.usuario.value)){
-      alert("Usuario modificado con Exito!");
+    if (await this.usuarioService.updateUsuario(rut_buscar, this.usuario.value)) {
+      await this.mostrarAlerta("Éxito", "Usuario modificado con éxito!");
       this.botonModificar = true;
       this.usuario.reset();
       this.usuarios = await this.usuarioService.getUsuarios();
-    }else{
-      alert("Usuario no Modificado!");
+    } else {
+      await this.mostrarAlerta("Error", "Usuario no modificado!");
     }
   }
 
-  async eliminar(rut_eliminar:string){
-    if(await this.usuarioService.deleteUsuario(rut_eliminar) ){
-      alert("Usuario eliminado con exito!")
+  async eliminar(rut_eliminar: string) {
+    if (await this.usuarioService.deleteUsuario(rut_eliminar)) {
+      await this.mostrarAlerta("Éxito", "Usuario eliminado con éxito!");
       this.usuarios = await this.usuarioService.getUsuarios();
-    }else{
-      alert("Usuario no eliminado!")
+    } else {
+      await this.mostrarAlerta("Error", "Usuario no eliminado!");
     }
   }
 
+  // Método para mostrar alertas usando AlertController
+  private async mostrarAlerta(header: string, message: string) {
+    const alert = await this.alertController.create({
+      header: header,
+      message: message,
+      buttons: ['Aceptar']
+    });
+    await alert.present();
+  }
 }

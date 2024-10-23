@@ -21,7 +21,10 @@ export class LoginPage implements OnInit {
 
   async login(){
     if(await this.usuarioService.login(this.email,this.password)){
+      this.email="";
+      this.password="";
       this.router.navigate(['/home']);
+
     }else{
       alert("Correo o Contraseña Incorrectos!");
     }

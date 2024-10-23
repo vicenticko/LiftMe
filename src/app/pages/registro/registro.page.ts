@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
@@ -21,14 +22,14 @@ export class RegistroPage implements OnInit {
     correo_electronico: new FormControl('',[Validators.required, Validators.pattern("[A-Za-zÑñ0-9.]+(@duocuc.cl)")]),
     contrasena: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(16)]),
     confirmarContrasena: new FormControl('', [Validators.required]),
-    tipo_usuario: new FormControl('Alumno'),
+    tipo_usuario: new FormControl('Usuario'),
 
     tiene_auto: new FormControl('no',[Validators.required]),
     patente: new FormControl('', [Validators.pattern("^[A-Z]{2}[A-Z]{2}[0-9]{2}$")]),
     capacidad_asientos: new FormControl('', [Validators.min(1), Validators.max(8)]),
   });
 
-  constructor(private router: Router, private usuarioService: UsuarioService) {
+  constructor(private router: Router, private usuarioService: UsuarioService, private alertController: AlertController) {
     this.usuario.get("rut")?.setValidators([Validators.required,Validators.pattern("[0-9]{7,8}-[0-9kK]{1}"),this.validarRUT()]);
    }
 
@@ -37,21 +38,40 @@ export class RegistroPage implements OnInit {
   
 
 
-  public async registrar(){
-    if( !this.validarEdad18(this.usuario.controls.fecha_nacimiento.value || "") ){
-      alert("Debe ser mayor de 18 años para registrarse!");
-      return;
-    }
-    
-    if(this.usuario.controls.contrasena.value != this.usuario.controls.confirmarContrasena.value){
-      alert("Las contraseñas no coinciden!");
+  public async registrar() {
+    if (!this.validarEdad18(this.usuario.controls.fecha_nacimiento.value || "")) {
+      const alert = await this.alertController.create({
+        header: 'Error',
+        message: 'Debe ser mayor de 18 años para registrarse!',
+        buttons: ['Aceptar']
+      });
+      await alert.present();
       return;
     }
 
-    if(await this.usuarioService.createUsuario(this.usuario.value)){
-      this.router.navigate(['/login']);
-      this.usuario.reset();
-      alert("Usuario creado con éxito!")
+    if (this.usuario.controls.contrasena.value !== this.usuario.controls.confirmarContrasena.value) {
+      const alert = await this.alertController.create({
+        header: 'Error',
+        message: 'Las contraseñas no coinciden!',
+        buttons: ['Aceptar']
+      });
+      await alert.present();
+      return;
+    }
+
+    if (await this.usuarioService.createUsuario(this.usuario.value)) {
+      const alert = await this.alertController.create({
+        header: 'Éxito',
+        message: 'Usuario creado con éxito!',
+        buttons: [{
+          text: 'Aceptar',
+          handler: () => {
+            this.router.navigate(['/login']);
+            this.usuario.reset();
+          }
+        }]
+      });
+      await alert.present();
     }
   }
 
