@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>perfil</ion-title>
+    <ion-title>Perfil</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
@@ -10,7 +10,20 @@
 <ion-content [fullscreen]="true" style="--background: url('assets/images/fondo-login.png') no-repeat center center / cover;">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">perfil</ion-title>
+      <ion-title size="large">Perfil</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <div class="profile-container">
+    <div class="profile-icon-wrapper">
+      <ion-avatar class="profile-icon" (click)="fileInput.click()">
+        <img [src]="profileImage" alt="Foto de perfil" />
+      </ion-avatar>
+      <input type="file" (change)="onFileSelected($event)" accept="image/*" class="file-input" #fileInput />
+    </div>
+  </div>
+  
+  <p class="black-text">Nombre: {{ usuario.nombre }}</p>
+
+
 </ion-content>

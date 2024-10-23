@@ -1,0 +1,28 @@
+.profile-container {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    /*align-items: center; /* Centra verticalmente */
+    margin-top: 10px; /* Margen superior */
+    height: calc(100% - 56px); /* Asegura que ocupe todo el alto del ion-content menos el alto del header */
+  }
+  
+  .profile-icon-wrapper {
+    position: relative; /* Permite posicionar el input de archivo dentro del contenedor */
+  }
+  
+  .profile-icon {
+    width: 150px; /* Tamaño más grande */
+    height: 150px; /* Tamaño más grande */
+    border: 2px solid black; /* Borde */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra opcional para dar un efecto de profundidad */
+  }
+  
+  .file-input {
+    display: none; /* Oculta el input de archivo */
+  }
+
+  .black-text {
+    color: black; /* Cambia el color del texto a negro */
+  }
+  
+  
