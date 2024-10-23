@@ -14,26 +14,29 @@
     </ion-toolbar>
   </ion-header>
 
+  <!-- Ícono de perfil y entrada para cambiar foto -->
+  <div class="profile-icon-wrapper">
+    <ion-avatar class="profile-icon" (click)="fileInput.click()">
+      <img [src]="profileImage" alt="Foto de perfil" />
+    </ion-avatar>
+    <input type="file" (change)="onFileSelected($event)" accept="image/*" class="file-input" #fileInput />
+  </div>
   <div class="profile-container">
-    <div class="profile-icon-wrapper">
-      <ion-avatar class="profile-icon" (click)="fileInput.click()">
-        <img [src]="profileImage" alt="Foto de perfil" />
-      </ion-avatar>
-      <input type="file" (change)="onFileSelected($event)" accept="image/*" class="file-input" #fileInput />
-    </div>
 
-    <div class="profile-text" style="text-align: center; margin-top: 10px;">
-      <h2 class="black-text">RUT: {{ usuario.rut }}</h2>
-      <h2 class="black-text">Nombre: {{ usuario.nombre }}</h2>
-      <h2 class="black-text">Apellido: {{ usuario.apellido }}</h2>
-      <br>
-      <h2 class="black-text">Correo: {{ usuario.correo_electronico }}</h2>
-      <br>
-      <h2 class="black-text">Tiene Auto?: {{ usuario.tiene_auto }}</h2>
-      <!-- Condicional para mostrar la patente y la capacidad de asientos -->
-      <div *ngIf="usuario.tiene_auto">
-        <h2 class="black-text">Patente: {{ usuario.patente }}</h2>
-        <h2 class="black-text">Capacidad de asientos: {{ usuario.capacidad_asientos }}</h2>
+    <!-- Detalles del usuario -->
+    <div class="profile-info">
+      <h2 class="info-title">Detalles del Usuario</h2>
+      <ion-label class="info-label">RUT: <strong>{{ usuario.rut }}</strong></ion-label>
+      <ion-label class="info-label">Nombre: <strong>{{ usuario.nombre }}</strong></ion-label>
+      <ion-label class="info-label">Apellido: <strong>{{ usuario.apellido }}</strong></ion-label>
+      <ion-label class="info-label">Correo: <strong>{{ usuario.correo_electronico }}</strong></ion-label>
+      <ion-label class="info-label">¿Tiene Auto?: <strong>{{ usuario.tiene_auto }}</strong></ion-label>
+      
+      <!-- Información adicional si el usuario tiene auto -->
+      <div *ngIf="usuario.tiene_auto == 'si'" class="car-info">
+        <h3 class="info-title">Información del Auto</h3>
+        <ion-label class="info-label">Patente: <strong>{{ usuario.patente }}</strong></ion-label>
+        <ion-label class="info-label">Capacidad de asientos: <strong>{{ usuario.capacidad_asientos }}</strong></ion-label>
       </div>
     </div>
   </div>

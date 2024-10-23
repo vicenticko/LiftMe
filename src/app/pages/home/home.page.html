@@ -1,5 +1,10 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goToHome()">
+        <ion-icon name="home"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title>Bienvenido: {{usuario.nombre | titlecase}}</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="logout()">
@@ -19,7 +24,12 @@
         <ion-icon name="calendar-number-sharp"></ion-icon>
         <ion-label>Reservas</ion-label>
       </ion-tab-button>
-
+      
+      <ion-tab-button tab="viajes">
+        <ion-icon name="car"></ion-icon>
+        <ion-label>Mis viajes</ion-label>
+      </ion-tab-button>
+      
       
       <ion-tab-button tab="administrador" *ngIf="usuario.tipo_usuario=='Administrador'">
         <ion-icon name="build"></ion-icon>

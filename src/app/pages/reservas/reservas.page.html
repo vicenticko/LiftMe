@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>reservas</ion-title>
+    <ion-title>Reservas</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
@@ -8,33 +8,53 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" style="--background: url('assets/images/fondo-login.png') no-repeat center center / cover;">
-
-  <ion-accordion-group>
-    <ion-accordion value="crear_reserva" (click)="initMap()" *ngIf="usuario.tiene_equipo=='si'">
+  <ion-accordion-group class="accordion-container">
+    <!-- Sección para crear una reserva -->
+    <ion-accordion value="crear_reserva" (click)="initMap()" *ngIf="usuario.tiene_auto == 'si'">
       <ion-item slot="header" color="light">
         <ion-label>Crear reserva</ion-label>
       </ion-item>
       <div class="ion-padding" slot="content">
         <!--Mapa-->
-        <div id="map_html"></div>
+        <div id="map_html" class="map-container"></div>
         <!--Formulario para crear un viaje-->
-        <form [formGroup]="viaje" (ngSubmit)="crearViaje()">
-          <ion-input type="number" labelPlacement="stacked" label="Asientos disp." formControlName="asientos_disp"></ion-input>
-          <ion-input type="number" labelPlacement="stacked" label="Valor" formControlName="valor"></ion-input>
-          <ion-input labelPlacement="stacked" label="Destino" formControlName="nombre_destino"></ion-input>
-          <ion-input labelPlacement="stacked" label="Distancia (metros)" formControlName="distancia_metros"></ion-input>
-          <ion-input type="number" labelPlacement="stacked" label="Minutos" formControlName="tiempo_minutos"></ion-input>
-          <ion-button [disabled]="viaje.invalid" type="submit" size="block" style="--background: rgb(159,183,64,255);">Crear viaje</ion-button>
+        <form [formGroup]="viaje" (ngSubmit)="crearViaje()" class="viaje-form">
+          <ion-item>
+            <ion-label position="stacked">Asientos disp.</ion-label>
+            <ion-input type="number" formControlName="asientos_disp"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Valor</ion-label>
+            <ion-input type="number" formControlName="valor"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Destino</ion-label>
+            <ion-input formControlName="nombre_destino"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Distancia (metros)</ion-label>
+            <ion-input formControlName="distancia_metros"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Minutos</ion-label>
+            <ion-input type="number" formControlName="tiempo_minutos"></ion-input>
+          </ion-item>
+          <ion-button [disabled]="viaje.invalid" type="submit" expand="block" class="custom-button">
+            Crear viaje
+          </ion-button>
         </form>
       </div>
     </ion-accordion>
+
+    <!-- Sección para mostrar reservas -->
     <ion-accordion value="reservas">
       <ion-item slot="header" color="light">
         <ion-label>Reservas</ion-label>
       </ion-item>
       <div class="ion-padding" slot="content">
-        <ion-list *ngFor="let v of viajes">
-          <ion-item>
+        <!-- Verificar si hay reservas disponibles -->
+        <ion-list *ngIf="viajes && viajes.length > 0" class="reserva-list">
+          <ion-item *ngFor="let v of viajes" class="reserva-item">
             <ion-label>
               <strong>{{v.nombre_destino}}</strong><br />
               <ion-note color="medium" class="ion-text-wrap">
@@ -45,10 +65,12 @@
               <ion-note color="medium">{{v.valor | currency}}</ion-note>
             </div>
           </ion-item>
-
         </ion-list>
+        <!-- Mensaje cuando no hay reservas -->
+        <ion-text color="medium" *ngIf="viajes && viajes.length === 0" class="empty-message">
+          No hay viajes disponibles en este momento.
+        </ion-text>
       </div>
     </ion-accordion>
   </ion-accordion-group>
-
 </ion-content>

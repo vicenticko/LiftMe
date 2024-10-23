@@ -23,7 +23,7 @@ export class UsuarioService {
       "correo_electronico": "admin@duocuc.cl",
       "contrasena": "admin123456",
       "confirmarContrasena": "admin123456",
-      "tiene_auto": "no",
+      "tiene_auto": "si",
       "patente": "",
       "capacidad_asientos":"",
       "tipo_usuario": "Administrador"

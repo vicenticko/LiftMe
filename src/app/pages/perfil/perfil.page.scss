@@ -1,22 +1,54 @@
 .profile-container {
+  max-width: 400px; /* Ancho máximo del contenedor */
+  margin: 20px auto; /* Centra el contenedor con un margen automático */
+  padding: 20px; /* Espacio interno */
+  background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semi-transparente */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra para efecto de elevación */
+}
+
+.profile-icon-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.profile-icon {
+  width: 100px; /* Tamaño del ícono de perfil */
+  height: 100px;
+  cursor: pointer; /* Cambia el cursor al pasar por encima */
+}
+
+.profile-info {
   display: flex;
   flex-direction: column;
-  margin-top: 10px;
-  align-items: center; /* Centra el contenido en el contenedor */
 }
-.profile-icon {
-  width: 150px; /* Tamaño más grande */
-  height: 150px; /* Tamaño más grande */
-  border: 2px solid black; /* Borde */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra opcional para dar un efecto de profundidad */
+
+.info-title {
+  font-size: 1.5em; /* Tamaño del título */
+  margin-bottom: 10px; /* Espacio debajo del título */
+  color: #333; /* Color del texto */
 }
+
+.info-label {
+  display: block;
+  font-size: 1em; /* Tamaño de las etiquetas */
+  margin: 5px 0; /* Espacio entre etiquetas */
+  color: #666; /* Color del texto */
+}
+
+.car-info {
+  margin-top: 15px; /* Espacio encima de la información del auto */
+  padding-top: 10px; /* Espacio interno superior */
+  border-top: 1px solid #ccc; /* Línea divisoria */
+}
+
 .black-text {
   color: black; /* Cambia el color del texto a negro */
 }
   
-.profile-icon-wrapper {
-  margin-bottom: 10px; /* Espaciado entre la imagen y el texto */
-}
   
   
   .file-input {
