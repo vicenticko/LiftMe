@@ -44,8 +44,8 @@ export class HomePage {
     await alert.present();
   }
 
-  goToHome() {
+  /*goToHome() {
     this.navController.navigateRoot('/home');
-  }
+  }*/
 
 }

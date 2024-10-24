@@ -47,30 +47,34 @@
     </ion-accordion>
 
     <!-- Sección para mostrar reservas -->
-    <ion-accordion value="reservas">
-      <ion-item slot="header" color="light">
-        <ion-label>Reservas</ion-label>
+<ion-accordion value="reservas">
+  <ion-item slot="header" color="light">
+    <ion-label>Reservas</ion-label>
+  </ion-item>
+  <div class="ion-padding" slot="content">
+    <!-- Verificar si hay reservas disponibles -->
+    <ion-list *ngIf="viajes && viajes.length > 0" class="reserva-list">
+      <ion-item *ngFor="let v of viajes" class="reserva-item">
+        <ion-label>
+          <strong>{{v.nombre_destino}}</strong><br />
+          <ion-note color="medium" class="ion-text-wrap">
+            Asientos disponibles: {{v.asientos_disp}}
+          </ion-note>
+        </ion-label>
+        <div class="metadata-end-wrapper" slot="end">
+          <ion-note color="medium">{{v.valor | currency}}</ion-note>
+        </div>
+        <!-- Botón para ir a detalle de reserva -->
+        <ion-button (click)="goToDetalleReserva(v.id)" color="primary" fill="clear">
+          Ver Detalles
+        </ion-button>
       </ion-item>
-      <div class="ion-padding" slot="content">
-        <!-- Verificar si hay reservas disponibles -->
-        <ion-list *ngIf="viajes && viajes.length > 0" class="reserva-list">
-          <ion-item *ngFor="let v of viajes" class="reserva-item">
-            <ion-label>
-              <strong>{{v.nombre_destino}}</strong><br />
-              <ion-note color="medium" class="ion-text-wrap">
-                Asientos disponibles: {{v.asientos_disp}}
-              </ion-note>
-            </ion-label>
-            <div class="metadata-end-wrapper" slot="end">
-              <ion-note color="medium">{{v.valor | currency}}</ion-note>
-            </div>
-          </ion-item>
-        </ion-list>
-        <!-- Mensaje cuando no hay reservas -->
-        <ion-text color="medium" *ngIf="viajes && viajes.length === 0" class="empty-message">
-          No hay viajes disponibles en este momento.
-        </ion-text>
-      </div>
-    </ion-accordion>
+    </ion-list>
+    <!-- Mensaje cuando no hay reservas -->
+    <ion-text color="medium" *ngIf="viajes && viajes.length === 0" class="empty-message">
+      No hay viajes disponibles en este momento.
+    </ion-text>
+  </div>
+</ion-accordion>
   </ion-accordion-group>
 </ion-content>

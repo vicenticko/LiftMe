@@ -1,10 +1,13 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+
+    <!--BOTON VOLVER AL HOME 
     <ion-buttons slot="start">
       <ion-button (click)="goToHome()">
         <ion-icon name="home"></ion-icon>
       </ion-button>
-    </ion-buttons>
+    </ion-buttons>-->
+
     <ion-title>Bienvenido: {{usuario.nombre | titlecase}}</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="logout()">

@@ -7,6 +7,7 @@ import * as L from 'leaflet';
 import * as G from 'leaflet-control-geocoder';
 import 'leaflet-routing-machine';
 import { ViajeService } from 'src/app/services/viaje.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-reservas',
@@ -37,7 +38,7 @@ export class ReservasPage implements OnInit {
   });
   viajes: any[] = [];
 
-  constructor(private viajeService: ViajeService) { }
+  constructor(private viajeService: ViajeService, private navController: NavController) { }
 
   async ngOnInit() {
     this.usuario = JSON.parse(localStorage.getItem("usuario") || '');
@@ -107,4 +108,8 @@ export class ReservasPage implements OnInit {
     this.viajes = await this.viajeService.getViajes();
   }
 
+  goToDetalleReserva(id: string) {
+    this.navController.navigateForward(`/home/reservas/detalle-reserva/${id}`);
+  }
+  
 }
