@@ -4,9 +4,8 @@ import { v4 as uuidv4 } from 'uuid';
 import * as L from 'leaflet';
 import * as G from 'leaflet-control-geocoder';
 import 'leaflet-routing-machine';
-import 'leaflet-routing-machine';
 import { ViajeService } from 'src/app/services/viaje.service';
-import { NavController } from '@ionic/angular';
+import { NavController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-reservas',
@@ -39,7 +38,11 @@ export class ReservasPage implements OnInit {
 
   viajes: any[] = [];
 
-  constructor(private viajeService: ViajeService, private navController: NavController) { }
+  constructor(
+    private viajeService: ViajeService, 
+    private navController: NavController,
+    private alertController: AlertController
+  ) { }
 
   async ngOnInit() {
     this.usuario = JSON.parse(localStorage.getItem("usuario") || '');
@@ -104,11 +107,22 @@ export class ReservasPage implements OnInit {
     }
   }
 
+  // Método para mostrar la alerta de confirmación
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Confirmación',
+      message: '¡Viaje creado exitosamente!',
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
+
+  // Método para crear el viaje y mostrar la alerta
   async crearViaje() {
     if (await this.viajeService.createViaje(this.viaje.value)) {
-      alert("Viaje Creado!");
-      this.viaje.reset();
-      await this.rescatarViajes();
+      this.presentAlert(); // Mostrar alerta de confirmación
+      this.viaje.reset(); // Restablecer el formulario después de crear el viaje
+      await this.rescatarViajes(); // Actualizar la lista de viajes
     }
   }
 
