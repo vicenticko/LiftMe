@@ -76,6 +76,10 @@
           <ion-input formControlName="capacidad_asientos" type="number" labelPlacement="stacked" label="Capacidad de Asientos" placeholder="Ingresa capacidad de asientos" inputmode="numeric"></ion-input>
         </ion-item>
 
+        <ion-item class="input-item" *ngIf="usuario.get('tiene_auto')?.value === 'si'">
+          <ion-input formControlName="marca_auto" type="text" labelPlacement="stacked" label="Marca del Auto" placeholder="Ingresa la marca del auto" inputmode="text"></ion-input>
+        </ion-item>
+
         <ion-item class="input-item">
           <ion-select formControlName="tipo_usuario" labelPlacement="stacked" label="Tipo Usuario">
             <ion-select-option>Administrador</ion-select-option>

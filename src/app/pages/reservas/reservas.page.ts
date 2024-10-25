@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import {v4 as uuidv4} from 'uuid';
-
-//lo primero es agregar un import:
+import { v4 as uuidv4 } from 'uuid';
 import * as L from 'leaflet';
 import * as G from 'leaflet-control-geocoder';
+import 'leaflet-routing-machine';
 import 'leaflet-routing-machine';
 import { ViajeService } from 'src/app/services/viaje.service';
 import { NavController } from '@ionic/angular';
@@ -15,27 +14,29 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./reservas.page.scss'],
 })
 export class ReservasPage implements OnInit {
-
   
-  //vamos a crear variable(s) para controlar el mapa:
   private map: L.Map | undefined;
   private geocoder: G.Geocoder | undefined;
+  private routingControl: any; // Control de rutas
   usuario: any;
+
+  // Definir tarifa por kilómetro
+  private tarifaPorKilometro = 800; // Tarifa a 800 unidades monetarias por kilómetro
   
-  //variable de grupo:
   viaje = new FormGroup({
-    id: new FormControl('',[Validators.required]),
-    conductor: new FormControl('',[Validators.required]),
-    asientos_disp: new FormControl('',[Validators.required]),
-    valor: new FormControl('',[Validators.required]),
-    nombre_destino: new FormControl('',[Validators.required]),
-    latitud: new FormControl('',[Validators.required]),
-    longitud: new FormControl('',[Validators.required]),
-    distancia_metros: new FormControl('',[Validators.required]),
-    tiempo_minutos: new FormControl(0,[Validators.required]),
+    id: new FormControl('', [Validators.required]),
+    conductor: new FormControl('', [Validators.required]),
+    asientos_disp: new FormControl('', [Validators.required]),
+    valor: new FormControl('', [Validators.required]),
+    nombre_destino: new FormControl('', [Validators.required]),
+    latitud: new FormControl('', [Validators.required]),
+    longitud: new FormControl('', [Validators.required]),
+    distancia_metros: new FormControl('', [Validators.required]),
+    tiempo_minutos: new FormControl(0, [Validators.required]),
     estado_viaje: new FormControl('pendiente'),
     pasajeros: new FormControl([])
   });
+
   viajes: any[] = [];
 
   constructor(private viajeService: ViajeService, private navController: NavController) { }
@@ -43,35 +44,30 @@ export class ReservasPage implements OnInit {
   async ngOnInit() {
     this.usuario = JSON.parse(localStorage.getItem("usuario") || '');
     this.viaje.controls.conductor.setValue(this.usuario.nombre);
+    this.viaje.controls.asientos_disp.setValue(this.usuario.capacidad_asientos);
     await this.rescatarViajes();
   }
 
-  initMap(){
+  initMap() {
     try {
-      //ACA CARGAMOS E INICIALIZAMOS EL MAPA:
-      this.map = L.map("map_html").locate({setView:true, maxZoom:16});
-      //this.map = L.map("map_html").setView([-33.608552227594245, -70.58039819211703],16);
+      this.map = L.map("map_html").locate({ setView: true, maxZoom: 16 });
       
-      //ES LA PLANTILLA PARA QUE SE VEA EL MAPA:
       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       }).addTo(this.map);
   
-      this.map.on('locationfound', (e)=>{
+      this.map.on('locationfound', (e) => {
         console.log(e.latlng.lat);
         console.log(e.latlng.lng);
       });
   
-      //VAMOS A AGREGAR UN BUSCADOR DE DIRECCIONES EN EL MAPA:
       this.geocoder = G.geocoder({
         placeholder: "Ingrese dirección a buscar",
         errorMessage: "Dirección no encontrada"
       }).addTo(this.map);
   
-      //VAMOS A REALIZAR UNA ACCIÓN CON EL BUSCADOR, CUANDO OCURRA ALGO CON EL BUSCADOR:
-      this.geocoder.on('markgeocode', (e)=>{
-        //cargo el formulario:
+      this.geocoder.on('markgeocode', (e) => {
         let lat = e.geocode.properties['lat'];
         let lon = e.geocode.properties['lon'];
         this.viaje.controls.nombre_destino.setValue(e.geocode.properties['display_name']);
@@ -80,36 +76,47 @@ export class ReservasPage implements OnInit {
         this.viaje.controls.latitud.setValue(lat);
         this.viaje.controls.longitud.setValue(lon);
         
-        if(this.map){
-          L.Routing.control({
-            waypoints: [L.latLng(-33.598465138173324, -70.57868924535276),
-              L.latLng(lat,lon)],
-              fitSelectedRoutes: true,
-            }).on('routesfound', (e)=>{
-              this.viaje.controls.distancia_metros.setValue(e.routes[0].summary.totalDistance);
-              this.viaje.controls.tiempo_minutos.setValue(Math.round(e.routes[0].summary.totalTime/60));
+        if (this.map) {
+          // Limpiar el control de rutas anterior si existe
+          if (this.routingControl) {
+            this.map.removeControl(this.routingControl);
+          }
+
+          this.routingControl = L.Routing.control({
+            waypoints: [
+              L.latLng(-33.598465138173324, -70.57868924535276),
+              L.latLng(lat, lon)
+            ],
+            fitSelectedRoutes: true,
+          }).on('routesfound', (e) => {
+            const distanciaMetros = e.routes[0].summary.totalDistance;
+            this.viaje.controls.distancia_metros.setValue(distanciaMetros);
+            this.viaje.controls.tiempo_minutos.setValue(Math.round(e.routes[0].summary.totalTime / 60));
+
+            // Calcular el valor basado en la distancia y redondear a un entero
+            const valorViaje = Math.floor((distanciaMetros / 1000) * this.tarifaPorKilometro); // Convertir metros a kilómetros y eliminar decimales
+            this.viaje.controls.valor.setValue(valorViaje.toString());
           }).addTo(this.map);
         }
       });
     } catch (error) {
+      console.error(error);
     }
   }
 
-  //creamos un viaje:
-  async crearViaje(){
-    if(await this.viajeService.createViaje(this.viaje.value)){
+  async crearViaje() {
+    if (await this.viajeService.createViaje(this.viaje.value)) {
       alert("Viaje Creado!");
       this.viaje.reset();
       await this.rescatarViajes();
     }
   }
 
-  async rescatarViajes(){
+  async rescatarViajes() {
     this.viajes = await this.viajeService.getViajes();
   }
 
   goToDetalleReserva(id: string) {
     this.navController.navigateForward(`/home/reservas/detalle-reserva/${id}`);
   }
-  
 }

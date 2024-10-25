@@ -24,8 +24,9 @@ export class UsuarioService {
       "contrasena": "admin123456",
       "confirmarContrasena": "admin123456",
       "tiene_auto": "si",
-      "patente": "",
-      "capacidad_asientos":"",
+      "patente": "ABCD12",
+      "capacidad_asientos":"5",
+      "marca_auto":"toyota",
       "tipo_usuario": "Administrador"
     };
     await this.createUsuario(admin);

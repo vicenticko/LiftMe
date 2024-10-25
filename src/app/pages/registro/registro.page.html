@@ -85,6 +85,10 @@
           <ion-input formControlName="capacidad_asientos" type="number" labelPlacement="stacked" label="Capacidad de Asientos" placeholder="Ingresa capacidad de asientos" inputmode="numeric"></ion-input>
         </ion-item>
 
+        <ion-item class="input-item" *ngIf="usuario.get('tiene_auto')?.value === 'si'">
+          <ion-input formControlName="marca_auto" type="text" labelPlacement="stacked" label="Marca del Auto" placeholder="Ingresa la marca del auto" inputmode="text"></ion-input>
+        </ion-item>
+
 
         <ion-button [disabled]="usuario.invalid" type="submit" size="block" style="--background: rgb(159,183,64,255); margin-top: 20px;">REGISTRAR</ion-button>
 
