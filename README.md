@@ -1,28 +1,42 @@
-Proyecto LiftMe Descripción:
+# LiftMe: App de Transporte Compartido para Estudiantes de Duoc UC
+LiftMe es una aplicación móvil diseñada para ayudar a los estudiantes de Duoc UC a coordinar su transporte al finalizar la jornada vespertina. Esta plataforma permite que los alumnos con vehículos ofrezcan viajes compartidos a otros compañeros, facilitando un retorno seguro y eficiente a sus hogares. La aplicación está disponible tanto en Android como en iOS.
 
-LiftMe es una aplicación móvil creada para ayudar a los estudiantes de Duoc UC a organizar su transporte al final de la jornada vespertina.
-Esta aplicación permite que los alumnos con movilización propia ofrezcan viajes a compañeros que necesiten transporte para regresar a sus hogares. La app está diseñada para su uso en plataformas Android e iOS.
+## 📲Características Principales
+Organización de viajes compartidos: Estudiantes con movilidad propia pueden ofrecer traslados a sus compañeros.
+Perfiles de usuarios: Conductores y pasajeros tienen perfiles personalizados para facilitar la interacción.
+Mapa en tiempo real: Visualización de rutas activas para un seguimiento más claro de los viajes disponibles.
+Sistema de mensajería integrada: Comunicación directa entre estudiantes para coordinar detalles del viaje.
+Evaluaciones y comentarios: Mejora continua mediante calificaciones y feedback de los usuarios.
 
-Características: Organización de viajes compartidos entre estudiantes. Sistema de perfiles para conductores y pasajeros. Mapa en tiempo real para visualizar las rutas disponibles. Sistema de mensajería entre estudiantes para coordinar detalles del viaje.
+## ⚙️Requisitos del Sistema
+Asegúrate de cumplir con los siguientes requisitos antes de instalar y utilizar LiftMe:
 
-Evaluaciones y comentarios para mejorar la experiencia de los usuarios. Requisitos: Antes de usar la aplicación, asegúrate de cumplir con los siguientes requisitos:
+Plataformas compatibles: Android e iOS.
 
-Plataformas compatibles: Android e iOS. Conexión a Internet: Se requiere para la sincronización de datos y el uso del mapa en tiempo real. Permisos de la aplicación: por el momento ninguno
+Conexión a Internet: Necesaria para la sincronización de datos y el funcionamiento del mapa en tiempo real.
 
-Lenguaje de programación: Ionic,javascript,html,typescript
+Permisos: No se requieren permisos adicionales por el momento.
 
-Instalación: Sigue los siguientes pasos para instalar y configurar el proyecto en tu máquina local:
+## 🚀Tecnologías Utilizadas
+Framework: Ionic
 
-bash [Copiar código] (https://github.com/vicenticko/LiftMe.git) cd D:\LiftMe
+Lenguajes: JavaScript, TypeScript, HTML
 
-Obtener la rama desde el repositorio remoto: Si la rama solo existe en el repositorio remoto (GitHub) y no la tienes localmente, primero debes hacer un fetch para actualizar las referencias a las ramas remotas: bash Copiar código git fetch
+## 🛠️Instalación y Configuración del Proyecto
+### 1️⃣ Clonar el repositorio
+Abre tu terminal o consola de comandos y clona el proyecto desde GitHub:
 
-Verifica que estás en la rama correcta: Una vez hayas cambiado de rama, puedes verificar la rama activa con: bash Copiar código git branch
+    git clone https://github.com/vicenticko/LiftMe.git
 
-Instala las dependencias:
+### 2️⃣ Acceder a la carpeta raiz del Proyecto
+    cd LiftMe
 
-bash npm install
+### 3️⃣ Instalar dependencias
+Instala todas las dependencias necesarias para el proyecto:
 
-Ejecuta la aplicación:
+    npm install
 
-bash ionic serve
+### 4️⃣ Ejecutar la aplicación
+Inicia la aplicación en un entorno de desarrollo local con el siguiente comando:
+
+    ionic serve
