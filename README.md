@@ -1,34 +1,33 @@
-# LiftMe: App de Transporte Compartido para Estudiantes de Duoc UC
-LiftMe es una aplicación móvil diseñada para ayudar a los estudiantes de Duoc UC a coordinar su transporte al finalizar la jornada vespertina. Esta plataforma permite que los alumnos con vehículos ofrezcan viajes compartidos a otros compañeros, facilitando un retorno seguro y eficiente a sus hogares. La aplicación está disponible tanto en Android como en iOS.
+# 🚀 **LiftMe**: Transporte Compartido para Estudiantes de Duoc UC
+¡Conecta, comparte y llega seguro! LiftMe es una app diseñada para que los estudiantes coordinen viajes compartidos al final de sus jornadas vespertinas. Si tienes auto, ¡ayuda a tus compañeros! Si no, encuentra un viaje rápido y seguro. Disponible en Android e iOS.
 
-## 📲Características Principales
-Organización de viajes compartidos: Estudiantes con movilidad propia pueden ofrecer traslados a sus compañeros.
-Perfiles de usuarios: Conductores y pasajeros tienen perfiles personalizados para facilitar la interacción.
-Mapa en tiempo real: Visualización de rutas activas para un seguimiento más claro de los viajes disponibles.
-Sistema de mensajería integrada: Comunicación directa entre estudiantes para coordinar detalles del viaje.
-Evaluaciones y comentarios: Mejora continua mediante calificaciones y feedback de los usuarios.
+## 🎯 ¿Qué Hace Especial a LiftMe?
+- ✨ **Organización de Viajes Compartidos**: Estudiantes con vehículo pueden ofrecer traslados a otros compañeros.
+- 👥 **Perfiles Personalizados**: Conductores y pasajeros gestionan su experiencia mediante perfiles únicos.
+- 🗺️ **Mapa en Tiempo Real**: Visualiza rutas activas para seguir cada viaje.
+- 💬 **Mensajería Instantánea**: Chatea directamente con tus compañeros para coordinar todo.
+- ⭐ **Evaluaciones y Feedback**: Califica tus viajes y mejora la comunidad con tus comentarios.
 
-## ⚙️Requisitos del Sistema
-Asegúrate de cumplir con los siguientes requisitos antes de instalar y utilizar LiftMe:
+## ⚙️ **Requisitos del Sistema**
+🔸 Plataformas: Android e iOS
 
-Plataformas compatibles: Android e iOS.
+🔸 Conexión a Internet: Para sincronizar datos y visualizar rutas en tiempo real
 
-Conexión a Internet: Necesaria para la sincronización de datos y el funcionamiento del mapa en tiempo real.
+🔸 Permisos: Por ahora, ¡nada extra que configurar!
 
-Permisos: No se requieren permisos adicionales por el momento.
+## 🛠️ Tecnologías que Impulsan LiftMe
+- Framework: Ionic
+- Lenguajes: JavaScript, TypeScript, HTML
 
-## 🚀Tecnologías Utilizadas
-Framework: Ionic
-
-Lenguajes: JavaScript, TypeScript, HTML
-
-## 🛠️Instalación y Configuración del Proyecto
+## 💻 Guía Rápida de Instalación y Configuración
 ### 1️⃣ Clonar el repositorio
 Abre tu terminal o consola de comandos y clona el proyecto desde GitHub:
 
     git clone https://github.com/vicenticko/LiftMe.git
 
-### 2️⃣ Acceder a la carpeta raiz del Proyecto
+### 2️⃣ Acceder al Proyecto
+Acceder a la carpeta raiz del Proyecto:
+
     cd LiftMe
 
 ### 3️⃣ Instalar dependencias
