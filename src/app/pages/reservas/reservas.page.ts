@@ -121,10 +121,16 @@ export class ReservasPage implements OnInit {
   async crearViaje() {
     if (await this.viajeService.createViaje(this.viaje.value)) {
       this.presentAlert(); // Mostrar alerta de confirmación
-      this.viaje.reset(); // Restablecer el formulario después de crear el viaje
+      
+      // Restablecer el formulario, excluyendo el campo de asientos disponibles
+      const asientosDisp = this.viaje.controls.asientos_disp.value; // Guardar el valor actual de asientos disponibles
+      this.viaje.reset(); // Restablecer el formulario
+      this.viaje.controls.asientos_disp.setValue(asientosDisp); // Reestablecer solo el campo de asientos disponibles
+  
       await this.rescatarViajes(); // Actualizar la lista de viajes
     }
   }
+  
 
   async rescatarViajes() {
     this.viajes = await this.viajeService.getViajes();
