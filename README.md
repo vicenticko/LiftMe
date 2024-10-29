@@ -18,8 +18,16 @@
 ## 🛠️ Tecnologías que Impulsan LiftMe
 - Framework: Ionic
 - Lenguajes: JavaScript, TypeScript, HTML
+  
+## ⚠⚠⚠⚠ ANTES DE INSTALAR ⚠⚠⚠⚠
+✅Asegurate de tener instalada la ultima version de Node.js
 
+✅ También necesitas instalar Ionic, en su version 7.0.2. Puedes hacerlo ejecutando el siguiente comando en tu terminal:
+    
+    npm install -g @ionic/cli@7.0.2
+    
 ## 💻 Guía Rápida de Instalación y Configuración
+
 ### 1️⃣ Clonar el repositorio
 Abre tu terminal o consola de comandos y clona el proyecto desde GitHub:
 
