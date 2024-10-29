@@ -24,7 +24,7 @@
 
 ✅ También necesitas instalar Ionic. Puedes hacerlo ejecutando el siguiente comando en tu terminal:
     
-    npm install -g @ionic/cli@
+    npm install -g @ionic/cli
     
 ## 💻 Guía Rápida de Instalación y Configuración
 
