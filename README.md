@@ -24,7 +24,7 @@
 
 ✅ También necesitas instalar Ionic, en su version 7.0.2. Puedes hacerlo ejecutando el siguiente comando en tu terminal:
     
-    npm install -g @ionic/cli@7.0.2
+    npm install -g @ionic/cli
     
 ## 💻 Guía Rápida de Instalación y Configuración
 
