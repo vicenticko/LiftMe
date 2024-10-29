@@ -20,11 +20,11 @@
 - Lenguajes: JavaScript, TypeScript, HTML
   
 ## ⚠⚠⚠⚠ ANTES DE INSTALAR ⚠⚠⚠⚠
-✅Asegurate de tener instalada la ultima version de Node.js
+✅Asegurate de tener instalada la ultima version de Node.js (https://nodejs.org/en/)
 
-✅ También necesitas instalar Ionic, en su version 7.0.2. Puedes hacerlo ejecutando el siguiente comando en tu terminal:
+✅ También necesitas instalar Ionic. Puedes hacerlo ejecutando el siguiente comando en tu terminal:
     
-    npm install -g @ionic/cli
+    npm install -g @ionic/cli@
     
 ## 💻 Guía Rápida de Instalación y Configuración
 
