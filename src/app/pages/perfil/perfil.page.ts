@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertController } from '@ionic/angular';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-perfil',
@@ -8,10 +10,12 @@ import { Component, OnInit } from '@angular/core';
 export class PerfilPage implements OnInit {
 
   usuario: any;  
+  usuarios: any[] = [];
+  botonModificar: boolean = true;
 
   profileImage: string = 'assets/images/pordefectoperfil.png';
 
-  constructor() { }
+  constructor(private usuarioService: UsuarioService, private alertController: AlertController) { }
 
   ngOnInit() {
     this.usuario = JSON.parse(localStorage.getItem("usuario") || '');

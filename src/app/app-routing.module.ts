@@ -33,6 +33,8 @@ const routes: Routes = [
     path: '**', //<----Siempre al final
     loadChildren: () => import('./pages/error404/error404.module').then( m => m.Error404PageModule)
   },
+  
+
 
 
 ];
