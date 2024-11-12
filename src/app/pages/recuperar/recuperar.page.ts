@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -12,7 +13,7 @@ export class RecuperarPage implements OnInit {
 
   email: string = "";
 
-  constructor(private usuarioService: UsuarioService, private router: Router, private alertController: AlertController) { }
+  constructor(private usuarioService: UsuarioService, private router: Router, private alertController: AlertController, private fireAuth: AngularFireAuth) { }
 
   ngOnInit() {
   }
@@ -22,6 +23,7 @@ export class RecuperarPage implements OnInit {
       await this.mostrarAlerta("Éxito", "Revisa tu correo para encontrar la nueva contraseña!");
       this.router.navigate(['/login']);
       this.email = "";
+      this.fireAuth
     } else {
       await this.mostrarAlerta("Error", "El usuario no existe!");
     }
