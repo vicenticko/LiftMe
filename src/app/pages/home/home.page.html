@@ -1,13 +1,5 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-
-    <!--BOTON VOLVER AL HOME 
-    <ion-buttons slot="start">
-      <ion-button (click)="goToHome()">
-        <ion-icon name="home"></ion-icon>
-      </ion-button>
-    </ion-buttons>-->
-
     <ion-title>Bienvenido: {{usuario.nombre | titlecase}}</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="logout()">
@@ -39,10 +31,10 @@
         <ion-label>Administrar</ion-label>
       </ion-tab-button>
       
-      <ion-tab-button tab="administrar-fire" *ngIf="usuario.tipo_usuario=='Administrador'">
+      <!--<ion-tab-button tab="administrar-fire" *ngIf="usuario.tipo_usuario=='Administrador'">
         <ion-icon name="flame-sharp"></ion-icon>
         <ion-label>Administrar Fire</ion-label>
-      </ion-tab-button>
+      </ion-tab-button>-->
 
       <ion-tab-button tab="perfil">
         <ion-icon name="person-circle-outline"></ion-icon>

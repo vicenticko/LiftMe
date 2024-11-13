@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { FireService } from 'src/app/services/fire.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
@@ -13,17 +14,16 @@ export class RecuperarPage implements OnInit {
 
   email: string = "";
 
-  constructor(private usuarioService: UsuarioService, private router: Router, private alertController: AlertController, private fireAuth: AngularFireAuth) { }
+  constructor(private router: Router, private alertController: AlertController, private fireAuth: AngularFireAuth, private fireService: FireService ) { }
 
   ngOnInit() {
   }
 
   async recuperar() {
-    if (await this.usuarioService.recuperarUsuario(this.email)) {
+    if (await this.fireService.recuperarUsuario(this.email)) {
       await this.mostrarAlerta("Éxito", "Revisa tu correo para encontrar la nueva contraseña!");
       this.router.navigate(['/login']);
       this.email = "";
-      this.fireAuth
     } else {
       await this.mostrarAlerta("Error", "El usuario no existe!");
     }

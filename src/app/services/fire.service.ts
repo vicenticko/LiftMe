@@ -7,7 +7,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class FireService {
 
-  constructor(private fireStore: AngularFirestore, private fireAuth: AngularFireAuth) { }
+  constructor(private fireStore: AngularFirestore, private fireAuth: AngularFireAuth, ) { }
 
   async crearUsuario(usuario: any){
     const docRef = this.fireStore.collection('usuarios').doc(usuario.rut);
@@ -40,4 +40,24 @@ export class FireService {
   deleteUsuario(rut: string){
     return this.fireStore.collection('usuarios').doc(rut).delete();
   }
+
+  async recuperarUsuario(correo_electronico: string): Promise<any> {
+    try {
+      const usuariosRef = this.fireStore.collection('usuarios', ref => ref.where('correo_electronico', '==', correo_electronico));
+      const snapshot = await usuariosRef.get().toPromise();
+
+      // Verificar si el snapshot existe y tiene documentos
+      if (snapshot && !snapshot.empty) {
+        return snapshot.docs[0].data();  // Devuelve el primer documento que coincida
+      } else {
+        return null;  // No se encontró ningún usuario con ese correo electrónico
+      }
+    } catch (error) {
+      console.error("Error al recuperar el usuario:", error);
+      return null;
+    }
+  }
+
+  
+
 }
