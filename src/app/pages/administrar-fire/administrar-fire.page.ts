@@ -5,11 +5,11 @@ import { FireService } from 'src/app/services/fire.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
-  selector: 'app-administrador',
-  templateUrl: './administrador.page.html',
-  styleUrls: ['./administrador.page.scss'],
+  selector: 'app-administrar-fire',
+  templateUrl: './administrar-fire.page.html',
+  styleUrls: ['./administrar-fire.page.scss'],
 })
-export class AdministradorPage implements OnInit {
+export class AdministrarFirePage implements OnInit {
 
   showPassword = false;
 
@@ -34,7 +34,7 @@ export class AdministradorPage implements OnInit {
   usuarios: any[] = [];
   botonModificar: boolean = true;
 
-  constructor(private alertController: AlertController, private fireService: FireService) {
+  constructor(private usuarioService: UsuarioService, private alertController: AlertController, private fireService: FireService) {
     this.usuario.get("rut")?.setValidators([Validators.required,Validators.pattern("^[0-9]{7,8}-[0-9Kk]{1}$"),this.validarRUT()]);
   }
 
@@ -102,10 +102,10 @@ export class AdministradorPage implements OnInit {
     }
 
     if (await this.fireService.crearUsuario(this.usuario.value)) {
-      await this.mostrarAlerta("Éxito", "Usuario creado con éxito!");
+      await this.mostrarAlerta("Éxito", "¡Usuario registrado!");
       this.usuario.reset();
     } else {
-      await this.mostrarAlerta("Error", "No se pudo crear el Usuario");
+      await this.mostrarAlerta("Error", "¡Error! El usuario ya existe.");
     }
   }
 
@@ -129,6 +129,8 @@ export class AdministradorPage implements OnInit {
     this.fireService.deleteUsuario(rut_eliminar);
   }
 
+  
+
   // Método para mostrar alertas usando AlertController
   private async mostrarAlerta(header: string, message: string) {
     const alert = await this.alertController.create({
@@ -138,4 +140,5 @@ export class AdministradorPage implements OnInit {
     });
     await alert.present();
   }
+
 }

@@ -22,6 +22,10 @@ const routes: Routes = [
       {
         path: 'administrador',
         loadChildren: () => import('../administrador/administrador.module').then( m => m.AdministradorPageModule)
+      },
+      {
+        path: 'administrar-fire',
+        loadChildren: () => import('../administrar-fire/administrar-fire.module').then( m => m.AdministrarFirePageModule)
       }
     ]
   }
