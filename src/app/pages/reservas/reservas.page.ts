@@ -135,7 +135,9 @@ export class ReservasPage implements OnInit {
     this.viajes = await this.viajeService.getViajes();
   }
 
-  goToDetalleReserva(id: string) {
-    this.navController.navigateForward(`/home/reservas/detalle-reserva/${id}`);
+  goToDetalleReserva(id: string, latitud: number, longitud: number) {
+    this.navController.navigateForward(`/home/reservas/detalle-reserva/${id}`, {
+      queryParams: { latitud, longitud }
+    });
   }
 }
