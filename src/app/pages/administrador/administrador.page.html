@@ -89,7 +89,7 @@
 
 
         <ion-button [disabled]="usuario.invalid" type="submit" size="block" style="--background: rgb(159,183,64,255); margin-top: 20px;">REGISTRAR </ion-button>
-        <ion-button [disabled]="botonModificar || usuario.invalid" (click)="modificar()" size="block" style="--background: rgb(27, 193, 160); margin-top: 20px;">MODIFICAR</ion-button>
+        <ion-button [disabled]="usuario.invalid" (click)="modificar()" size="block" style="--background: rgb(27, 193, 160); margin-top: 20px;">MODIFICAR</ion-button>
           <ion-button type="reset" size="block" style="--background: rgb(216, 104, 104); margin-top: 20px;">LIMPIAR</ion-button>
       </form>
     </ion-card>

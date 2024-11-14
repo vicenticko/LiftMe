@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import * as L from 'leaflet';
 
 @Component({
   selector: 'app-detalle-reserva',
@@ -7,16 +7,27 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./detalle-reserva.page.scss'],
 })
 export class DetalleReservaPage implements OnInit {
+  private map: L.Map | undefined;
+  // Define cualquier otra propiedad necesaria aquí, como geocoder o routingControl.
 
-  id: number = 0;
-  viaje: any;
-
-  constructor(private activatedRoute: ActivatedRoute) { }
+  constructor() {}
 
   ngOnInit() {
-    //console.log(this.activatedRoute.snapshot.paramMap.get("id"));
-    this.id = +(this.activatedRoute.snapshot.paramMap.get("id") || "");
-    //ahora llamo al servicio de viaje, a un metodo llamado getViaje(this.id)
+    this.initMap(); // Inicializa el mapa cuando se carga la página
   }
 
+  initMap() {
+    try {
+      this.map = L.map("map_html").locate({ setView: true, maxZoom: 16 });
+
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(this.map);
+
+      // Puedes añadir el resto de la configuración del mapa aquí.
+    } catch (error) {
+      console.error(error);
+    }
+  }
 }

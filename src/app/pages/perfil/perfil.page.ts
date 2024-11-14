@@ -26,7 +26,7 @@ export class PerfilPage implements OnInit {
     if (file) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        this.profileImage = e.target?.result as string; // Actualiza la imagen de perfil
+        this.profileImage = e.target?.result as string;
       };
       reader.readAsDataURL(file);
     }

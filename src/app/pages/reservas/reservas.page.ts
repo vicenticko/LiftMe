@@ -131,7 +131,6 @@ export class ReservasPage implements OnInit {
     }
   }
   
-
   async rescatarViajes() {
     this.viajes = await this.viajeService.getViajes();
   }
