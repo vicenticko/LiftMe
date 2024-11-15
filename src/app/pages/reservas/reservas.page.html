@@ -10,9 +10,9 @@
 <ion-content [fullscreen]="true" style="--background: url('assets/images/fondo-login.png') no-repeat center center / cover;">
 
   
-    <ion-card class="crear-reserva-container ion-padding">
+    <ion-card *ngIf="usuario.tiene_auto === 'si'" class="crear-reserva-container ion-padding">
       <!-- Sección para crear una reserva, sin acordeón -->
-      <div *ngIf="usuario.tiene_auto === 'si'" class="crear-reserva-container ion-padding">
+      <div  class="crear-reserva-container">
 
         <ion-label>Crear Viaje</ion-label>
     
@@ -60,7 +60,7 @@
     <ion-card class="crear-reserva-container ion-padding">
       
       <!-- Sección para mostrar reservas -->
-      <div class="reserva-container ion-padding">
+      <div class="reserva-container ">
 
         <ion-label>Viajes</ion-label>
 
