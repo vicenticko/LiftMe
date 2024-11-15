@@ -17,7 +17,6 @@ export class HomePage {
 
   ngOnInit(){
     this.usuario = JSON.parse(localStorage.getItem("usuario") || '');
-    this.getPokemon();
   }
 
   async logout() {
@@ -46,16 +45,6 @@ export class HomePage {
     });
     // Muestra la alerta
     await alert.present();
-  }
-
-  getPokemon(): void {
-    this.pokeAPI.getRandomPokemon().subscribe((data) => {
-        this.pokemon = data;
-      },
-      (error) => {
-        console.error('Error fetching Pokémon:', error);
-      }
-    );
   }
   
 }

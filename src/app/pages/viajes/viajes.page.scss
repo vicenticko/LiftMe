@@ -1,0 +1,11 @@
+.container {
+    position: fixed;
+    bottom: 1px; /* Espacio desde el borde inferior */
+    right: 1px;
+  }
+  
+  .container img {
+    width: 200px;  /* Cambia el tamaño aquí */
+    height: auto;  /* Mantiene la proporción */
+    max-width: 100%; /* Evita que la imagen se salga del contenedor */
+  }

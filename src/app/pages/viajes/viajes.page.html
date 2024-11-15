@@ -5,5 +5,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" style="--background: url('assets/images/fondo-login.png') no-repeat center center / cover;">
-  
+  <div *ngIf="pokemon" class="container">
+    <img [src]="pokemon.sprites.front_default" alt="{{ pokemon.name }}" />
+  </div>
 </ion-content>
