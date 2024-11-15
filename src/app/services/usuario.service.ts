@@ -27,7 +27,7 @@ export class UsuarioService {
       "patente": "ABCD12",
       "capacidad_asientos":"5",
       "marca_auto":"toyota",
-      "tipo_usuario": "Administrador"
+      "tipo_usuario": "admin"
     };
     await this.createUsuario(admin);
   }
