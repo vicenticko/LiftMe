@@ -52,39 +52,47 @@ export class ReservasPage implements OnInit {
   }
 
   initMap() {
+
     try {
+      //Inicialización del mapa
       this.map = L.map("map_html").locate({ setView: true, maxZoom: 16 });
       
+      //Configuración de la capa base
       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       }).addTo(this.map);
   
+      //Geolocalización del usuario
       this.map.on('locationfound', (e) => {
         console.log(e.latlng.lat);
         console.log(e.latlng.lng);
       });
   
+      //Geocodificación (Buscar una dirección)
       this.geocoder = G.geocoder({
         placeholder: "Ingrese dirección a buscar",
         errorMessage: "Dirección no encontrada"
       }).addTo(this.map);
   
+      //Manejo del evento markgeocode
       this.geocoder.on('markgeocode', (e) => {
         let lat = e.geocode.properties['lat'];
         let lon = e.geocode.properties['lon'];
+  
+        //Actualización de los controles del formulario
         this.viaje.controls.nombre_destino.setValue(e.geocode.properties['display_name']);
-        
         this.viaje.controls.id.setValue(uuidv4());
         this.viaje.controls.latitud.setValue(lat);
         this.viaje.controls.longitud.setValue(lon);
         
+        //Cálculo de rutas
         if (this.map) {
           // Limpiar el control de rutas anterior si existe
           if (this.routingControl) {
             this.map.removeControl(this.routingControl);
           }
-
+  
           this.routingControl = L.Routing.control({
             waypoints: [
               L.latLng(-33.598465138173324, -70.57868924535276),
@@ -95,16 +103,19 @@ export class ReservasPage implements OnInit {
             const distanciaMetros = e.routes[0].summary.totalDistance;
             this.viaje.controls.distancia_metros.setValue(distanciaMetros);
             this.viaje.controls.tiempo_minutos.setValue(Math.round(e.routes[0].summary.totalTime / 60));
+  
+          // Calcular el valor basado en la distancia y redondear a un entero
+          const valorViaje = Math.floor((distanciaMetros / 1000) * this.tarifaPorKilometro); // Convertir metros a kilómetros y eliminar decimales
+          this.viaje.controls.valor.setValue(valorViaje.toString());
 
-            // Calcular el valor basado en la distancia y redondear a un entero
-            const valorViaje = Math.floor((distanciaMetros / 1000) * this.tarifaPorKilometro); // Convertir metros a kilómetros y eliminar decimales
-            this.viaje.controls.valor.setValue(valorViaje.toString());
           }).addTo(this.map);
         }
       });
+  
     } catch (error) {
       console.error(error);
     }
+      
   }
 
   // Método para mostrar la alerta de confirmación
@@ -121,16 +132,32 @@ export class ReservasPage implements OnInit {
   async crearViaje() {
     if (await this.viajeService.createViaje(this.viaje.value)) {
       this.presentAlert(); // Mostrar alerta de confirmación
-      
+  
       // Restablecer el formulario, excluyendo el campo de asientos disponibles
       const asientosDisp = this.viaje.controls.asientos_disp.value; // Guardar el valor actual de asientos disponibles
       this.viaje.reset(); // Restablecer el formulario
       this.viaje.controls.asientos_disp.setValue(asientosDisp); // Reestablecer solo el campo de asientos disponibles
   
+      // Reiniciar el mapa
+      this.resetMap();
+  
       await this.rescatarViajes(); // Actualizar la lista de viajes
     }
   }
   
+  resetMap() {
+    if (this.map) {
+      // Elimina el control de rutas si existe
+      if (this.routingControl) {
+        this.map.removeControl(this.routingControl);
+        this.routingControl = null;
+      }
+  
+      // Centra nuevamente el mapa en la ubicación inicial del usuario
+      this.map.locate({ setView: true, maxZoom: 16 });
+    }
+  }
+
   async rescatarViajes() {
     this.viajes = await this.viajeService.getViajes();
   }
@@ -140,4 +167,13 @@ export class ReservasPage implements OnInit {
       queryParams: { latitud, longitud }
     });
   }
+
+  getFormattedDestination(destino: string): string {
+    const partes = destino.split(',');  // Divide la dirección por las comas
+    if (partes.length > 2) {
+      return `${partes[1].trim()} ${partes[0].trim()}, ${partes[3].trim()}`;
+    }
+    return destino;  // Devuelve la dirección original si no tiene el formato esperado
+  }
+
 }

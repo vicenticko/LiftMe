@@ -9,8 +9,8 @@
 
 <ion-content [fullscreen]="true" style="--background: url('assets/images/fondo-login.png') no-repeat center center / cover;">
 
-  <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-    <ion-card style="width: 350px;">
+  
+    <ion-card class="crear-reserva-container ion-padding">
       <!-- Sección para crear una reserva, sin acordeón -->
       <div *ngIf="usuario.tiene_auto === 'si'" class="crear-reserva-container ion-padding">
 
@@ -54,10 +54,10 @@
         </form>
       </div>
     </ion-card>
-  </div>
+  
 
-  <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-    <ion-card style="width: 350px;">
+
+    <ion-card class="crear-reserva-container ion-padding">
       
       <!-- Sección para mostrar reservas -->
       <div class="reserva-container ion-padding">
@@ -69,20 +69,20 @@
           <ion-item *ngFor="let v of viajes" class="reserva-item">
 
             <ion-label>
-              <strong>{{ v.nombre_destino }}</strong><br />
-
-              <ion-note color="medium" class="ion-text-wrap">
+              <strong>{{ getFormattedDestination(v.nombre_destino) }}</strong><br />
+            
+              <ion-note color="green" class="ion-text-wrap">
                 Asientos disponibles: {{ v.asientos_disp }}
               </ion-note>
-
             </ion-label>
+            
 
             <div class="metadata-end-wrapper" slot="end">
-              <ion-note color="medium">{{ v.valor | currency }}</ion-note>
+              <ion-note color="medium">${{ v.valor  }}</ion-note>
             </div>
 
             <!-- Botón para ir a detalle de reserva -->
-            <ion-button (click)="goToDetalleReserva(v.id, v.latitud, v.longitud)" color="primary" fill="clear">
+            <ion-button (click)="goToDetalleReserva(v.id, v.latitud, v.longitud)" style="color: #9fb740 ;" fill="clear">
               Ver Detalle
             </ion-button>
 
@@ -96,6 +96,6 @@
 
       </div>
     </ion-card>
-  </div>
+
 </ion-content>
 

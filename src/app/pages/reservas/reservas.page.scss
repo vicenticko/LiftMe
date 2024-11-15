@@ -1,7 +1,17 @@
 #map_html{
     height: 50vh;
-    width: auto;
+    width: 100%;
     //margin: 10% 10% 10% 10%;
+}
+
+.map-container {
+  height: 300px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+
+  margin-bottom: 20px;
+  margin-top: 10px;
 }
 
 ion-content {
@@ -22,14 +32,6 @@ ion-content {
     margin-top: 20px;
   }
   
-  .map-container {
-    height: 300px;
-    width: 100%;
-    border: 1px solid #ccc;
-    margin-bottom: 20px;
-    margin-top: 10px;
-    border-radius: 10px;
-  }
   
   .reserva-list {
     margin-top: 10px;
@@ -46,4 +48,3 @@ ion-content {
     text-align: center;
     margin-top: 20px;
   }
-  
