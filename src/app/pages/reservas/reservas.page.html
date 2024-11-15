@@ -21,37 +21,36 @@
     
         <!-- Formulario para crear un viaje -->
         <form [formGroup]="viaje" (ngSubmit)="crearViaje()" class="viaje-form">
-
           <ion-item>
             <ion-label position="stacked">Asientos disp.</ion-label>
             <ion-input formControlName="asientos_disp" [value]="usuario.capacidad_asientos" readonly></ion-input>
           </ion-item>
-    
+        
           <ion-item>
             <ion-label position="stacked">Valor</ion-label>
             <ion-input type="number" formControlName="valor" [value]="viaje.controls.valor.value" readonly></ion-input>
           </ion-item>
-    
+        
           <ion-item>
             <ion-label position="stacked">Destino</ion-label>
-            <ion-input formControlName="nombre_destino"></ion-input>
+            <ion-input formControlName="nombre_destino" readonly></ion-input>
           </ion-item>
-    
+        
           <ion-item>
             <ion-label position="stacked">Distancia (metros)</ion-label>
-            <ion-input formControlName="distancia_metros"></ion-input>
+            <ion-input formControlName="distancia_metros" readonly></ion-input>
           </ion-item>
-    
+        
           <ion-item>
             <ion-label position="stacked">Minutos</ion-label>
-            <ion-input type="number" formControlName="tiempo_minutos"></ion-input>
+            <ion-input type="number" formControlName="tiempo_minutos" readonly></ion-input>
           </ion-item>
-    
+        
           <ion-button [disabled]="viaje.invalid" type="submit" expand="block" class="custom-button">
             Crear viaje
           </ion-button>
-
         </form>
+        
       </div>
     </ion-card>
   

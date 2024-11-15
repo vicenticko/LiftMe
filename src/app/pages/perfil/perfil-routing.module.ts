@@ -6,13 +6,7 @@ import { PerfilPage } from './perfil.page';
 const routes: Routes = [
   {
     path: '',
-    component: PerfilPage,
-    children: [
-      {
-        path: 'modificar-perfil',
-        loadChildren: () => import('../modificar-perfil/modificar-perfil.module').then( m => m.ModificarPerfilPageModule)
-      }
-    ]
+    component: PerfilPage
   }
 ];
 
