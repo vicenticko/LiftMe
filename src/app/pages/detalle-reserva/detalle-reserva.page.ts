@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import * as L from 'leaflet';
 
 @Component({
@@ -10,7 +11,7 @@ export class DetalleReservaPage implements OnInit {
   private map: L.Map | undefined;
   // Define cualquier otra propiedad necesaria aquí, como geocoder o routingControl.
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit() {
     this.initMap(); // Inicializa el mapa cuando se carga la página
@@ -30,4 +31,9 @@ export class DetalleReservaPage implements OnInit {
       console.error(error);
     }
   }
+
+  toViajes() {
+    this.router.navigate(['/home/viajes']);
+  }
+
 }
