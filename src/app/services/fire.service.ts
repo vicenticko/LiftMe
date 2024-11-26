@@ -41,20 +41,13 @@ export class FireService {
     return this.fireStore.collection('usuarios').doc(rut).delete();
   }
 
-  async recuperarUsuario(correo_electronico: string): Promise<any> {
+  async recuperarUsuario(correo_electronico: string): Promise<boolean> {
     try {
-      const usuariosRef = this.fireStore.collection('usuarios', ref => ref.where('correo_electronico', '==', correo_electronico));
-      const snapshot = await usuariosRef.get().toPromise();
-
-      // Verificar si el snapshot existe y tiene documentos
-      if (snapshot && !snapshot.empty) {
-        return snapshot.docs[0].data();  // Devuelve el primer documento que coincida
-      } else {
-        return null;  // No se encontró ningún usuario con ese correo electrónico
-      }
+      await this.fireAuth.sendPasswordResetEmail(correo_electronico);  // Enviar correo de recuperación
+      return true;  // Indicar que el correo fue enviado correctamente
     } catch (error) {
-      console.error("Error al recuperar el usuario:", error);
-      return null;
+      console.error("Error al recuperar la contraseña:", error);
+      return false;  // Si hay un error, retornar false
     }
   }
 

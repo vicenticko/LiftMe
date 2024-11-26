@@ -20,15 +20,19 @@ export class RecuperarPage implements OnInit {
   }
 
   async recuperar() {
-    if (await this.fireService.recuperarUsuario(this.email)) {
+    // Verificar si el correo existe y enviar la solicitud de recuperación
+    const correoRecuperacionExitoso = await this.fireService.recuperarUsuario(this.email);
+  
+    if (correoRecuperacionExitoso) {
+      // Mostrar mensaje de éxito si el correo se envió correctamente
       await this.mostrarAlerta("Éxito", "Revisa tu correo para encontrar la nueva contraseña!");
       this.router.navigate(['/login']);
       this.email = "";
     } else {
-      await this.mostrarAlerta("Error", "El usuario no existe!");
+      // Si no se pudo enviar el correo (por ejemplo, si el correo no existe)
+      await this.mostrarAlerta("Error", "El usuario no existe o hubo un problema al enviar el correo!");
     }
   }
-
   // Método para mostrar alertas usando AlertController
   private async mostrarAlerta(header: string, message: string) {
     const alert = await this.alertController.create({
