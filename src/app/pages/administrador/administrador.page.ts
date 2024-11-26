@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { FireService } from 'src/app/services/fire.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -28,13 +29,15 @@ export class AdministradorPage implements OnInit {
     capacidad_asientos: new FormControl('', [Validators.min(1), Validators.max(8)]),
     marca_auto: new FormControl(''),
 
-    tipo_usuario: new FormControl('', [Validators.required])
+    tipo_usuario: new FormControl('', [Validators.required]),
+
+    uid: new FormControl('')
   });
 
   usuarios: any[] = [];
   botonModificar: boolean = true;
 
-  constructor(private alertController: AlertController, private fireService: FireService) {
+  constructor(private alertController: AlertController, private fireService: FireService, private router: Router) {
     this.usuario.get("rut")?.setValidators([Validators.required,Validators.pattern("^[0-9]{7,8}-[0-9Kk]{1}$"),this.validarRUT()]);
   }
 
@@ -51,6 +54,8 @@ export class AdministradorPage implements OnInit {
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
+
+  
 
   validarEdad18(fecha_nacimiento: string) {
     var edad = 0;
@@ -91,16 +96,35 @@ export class AdministradorPage implements OnInit {
   }
 
   async registrar() {
+    const rut = this.usuario.controls.rut.value;
+    const correo = this.usuario.controls.correo_electronico.value;
+  
+    // Verificar si el RUT es válido y no nulo
+    if (rut && await this.fireService.buscarPorRUT(rut)) {
+      await this.mostrarAlerta("Error", "El RUT ya está registrado.");
+      return;
+    }
+    
+    // Verificar si el usuario tiene 18 años o más
     if (!this.validarEdad18(this.usuario.controls.fecha_nacimiento.value || "")) {
       await this.mostrarAlerta("Error", "Debe ser mayor de 18 años para registrarse!");
       return;
     }
-
+    
+    // Verificar si el correo es válido y no nulo
+    if (correo && await this.fireService.buscarPorCorreo(correo)) {
+      await this.mostrarAlerta("Error", "El correo electrónico ya está registrado.");
+      return;
+    }
+  
+  
+    // Verificar si las contraseñas coinciden
     if (this.usuario.controls.contrasena.value !== this.usuario.controls.confirmarContrasena.value) {
       await this.mostrarAlerta("Error", "Las contraseñas no coinciden!");
       return;
     }
-
+  
+    // Si todo es correcto, crear el usuario
     if (await this.fireService.crearUsuario(this.usuario.value)) {
       await this.mostrarAlerta("Éxito", "Usuario creado con éxito!");
       this.usuario.reset();
