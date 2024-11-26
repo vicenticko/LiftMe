@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { FireService } from 'src/app/services/fire.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
@@ -15,26 +16,27 @@ export class LoginPage implements OnInit {
 
   showPassword = false;
 
-  constructor(private router: Router, private usuarioService: UsuarioService, private alertController: AlertController) { }
+  constructor(private router: Router, private usuarioService: UsuarioService, private alertController: AlertController, private fireService: FireService) { }
 
   ngOnInit() {
   }
 
   async login() {
-  if (await this.usuarioService.login(this.email, this.password)) {
-    this.email = '';
-    this.password = '';
-    this.router.navigate(['/home']);
-  } else {
-    const alert = await this.alertController.create({
-      header: 'Error',
-      message: 'Correo o Contraseña Incorrectos!',
-      buttons: ['OK']
-    });
+    if (await this.fireService.login(this.email, this.password)) {
+      this.email = '';
+      this.password = '';
+      this.router.navigate(['/home']);
+      console.log('Login exitoso');
+    } else {
+      const alert = await this.alertController.create({
+        header: 'Error',
+        message: 'Correo o Contraseña Incorrectos!',
+        buttons: ['OK']
+      });
 
-    await alert.present();
+      await alert.present();
+    }
   }
-}
   
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
