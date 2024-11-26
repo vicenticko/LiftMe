@@ -23,6 +23,9 @@ export class LoginPage implements OnInit {
 
   async login() {
     if (await this.fireService.login(this.email, this.password)) {
+      // Guarda el usuario en localStorage después de un login exitoso
+      localStorage.setItem('usuario', JSON.stringify({ email: this.email }));
+  
       this.email = '';
       this.password = '';
       this.router.navigate(['/home']);
@@ -33,10 +36,11 @@ export class LoginPage implements OnInit {
         message: 'Correo o Contraseña Incorrectos!',
         buttons: ['OK']
       });
-
+  
       await alert.present();
     }
   }
+  
   
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;

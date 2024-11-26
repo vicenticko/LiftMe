@@ -6,11 +6,11 @@ export const authGuard: CanActivateFn = (route, state) => {
   const navController = inject(NavController);
   const isAuthenticated = localStorage.getItem("usuario") ? true : false;
 
-  //validacion del usuario si esta log para acceder a home y children:
-  if(!isAuthenticated && state.url !== '/login'){
+  // Validación del usuario: si no está logueado, redirige al login
+  if (!isAuthenticated && state.url !== '/login') {
     navController.navigateRoot('/login');
     return false;
   }
-  
+
   return true;
 };
