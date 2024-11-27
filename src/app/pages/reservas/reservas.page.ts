@@ -50,7 +50,7 @@ export class ReservasPage implements OnInit {
     this.usuario = JSON.parse(localStorage.getItem("usuario") || '');
     this.viaje.controls.conductor.setValue(this.usuario.nombre);
     this.viaje.controls.asientos_disp.setValue(this.usuario.capacidad_asientos);
-    await this.rescatarViajes();
+    await this.rescatarViajes(); // Asegúrate de rescatar los viajes cuando se inicie la página.
   }
 
   
@@ -67,11 +67,11 @@ export class ReservasPage implements OnInit {
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       }).addTo(this.map);
   
-      //Geolocalización del usuario
+      /*Geolocalización del usuario
       this.map.on('locationfound', (e) => {
         console.log(e.latlng.lat);
         console.log(e.latlng.lng);
-      });
+      });*/
   
       //Geocodificación (Buscar una dirección)
       this.geocoder = G.geocoder({
@@ -169,7 +169,7 @@ export class ReservasPage implements OnInit {
     this.viajes = await this.viajeService.getViajes();
     this.tieneViajeActivo = this.viajes.some(v => v.uid_conductor === this.usuario.uid);
   }
-
+  
   goToDetalleReserva(id: string, latitud: number, longitud: number) {
     this.navController.navigateForward(`/home/reservas/detalle-reserva/${id}`, {
       queryParams: { latitud, longitud }
