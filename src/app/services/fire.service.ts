@@ -27,17 +27,25 @@ export class FireService {
 
   async login(correo: string, contrasena: string): Promise<boolean> {
     try {
-      // Intentar iniciar sesión con el correo y la contraseña proporcionados
       const usuarioCredential = await this.fireAuth.signInWithEmailAndPassword(correo, contrasena);
-      
-      // Si la autenticación es exitosa, el usuario ha iniciado sesión correctamente
-      return usuarioCredential.user !== null; // Retorna true si el usuario ha sido autenticado
+      return usuarioCredential.user !== null;
     } catch (error) {
       console.error('Error de autenticación:', error);
-      return false; // Si hay un error (correo o contraseña incorrectos), retornar false
+      return false;
     }
   }
+
+  async getUsuarioPorCorreo(correo: string): Promise<any> {
+    const usuarioRef = await this.fireStore.collection('usuarios', ref => ref.where('correo_electronico', '==', correo)).get().toPromise();
   
+    // Verificamos si usuarioRef no es undefined y si tiene documentos
+    if (usuarioRef && !usuarioRef.empty) {
+      return usuarioRef.docs[0].data();  // Retorna el primer documento encontrado
+    }
+  
+    return null;  // Si no hay usuarios con ese correo
+  }
+
   getUsuarios(){
     return this.fireStore.collection('usuarios').valueChanges();
   }

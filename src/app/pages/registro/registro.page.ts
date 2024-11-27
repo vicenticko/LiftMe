@@ -3,7 +3,6 @@ import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn,
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { FireService } from 'src/app/services/fire.service';
-import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-registro',
@@ -31,13 +30,10 @@ export class RegistroPage implements OnInit {
     marca_auto: new FormControl(''),
   });
 
-  constructor(private router: Router, private usuarioService: UsuarioService, private alertController: AlertController, private fireService: FireService) {
-    this.usuario.get("rut")?.setValidators([Validators.required,Validators.pattern("[0-9]{7,8}-[0-9kK]{1}"),this.validarRUT()]);
-   }
+  constructor(private router: Router, private alertController: AlertController, private fireService: FireService) {}
 
-  ngOnInit() {
-  }
-  
+  ngOnInit() {}
+
   async registrar() {
     const rut = this.usuario.controls.rut.value;
     const correo = this.usuario.controls.correo_electronico.value;
@@ -69,6 +65,10 @@ export class RegistroPage implements OnInit {
     // Si todo es correcto, crear el usuario
     if (await this.fireService.crearUsuario(this.usuario.value)) {
       await this.mostrarAlerta("Éxito", "Usuario creado con éxito!");
+      
+      // Guardar en localStorage después de un registro exitoso
+      const usuarioGuardado = this.usuario.value;
+      localStorage.setItem('usuario', JSON.stringify(usuarioGuardado));
       this.usuario.reset();
   
       // Redirigir al login después de un registro exitoso
@@ -77,9 +77,6 @@ export class RegistroPage implements OnInit {
       await this.mostrarAlerta("Error", "No se pudo crear el Usuario");
     }
   }
-  
-  
-  
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
@@ -92,11 +89,17 @@ export class RegistroPage implements OnInit {
       const timeDiff = Math.abs(Date.now() - fecha_date.getTime());
       edad = Math.floor((timeDiff / (1000 * 3600 * 24))/365);
     }
-    if(edad>=18){
-      return true;
-    }else{
-      return false;
-    }
+    return edad >= 18;
+  }
+
+  // Método para mostrar alertas usando AlertController
+  private async mostrarAlerta(header: string, message: string) {
+    const alert = await this.alertController.create({
+      header: header,
+      message: message,
+      buttons: ['Aceptar']
+    });
+    await alert.present();
   }
 
   validarRUT(): ValidatorFn {
@@ -126,15 +129,4 @@ export class RegistroPage implements OnInit {
     if (resto === 10) return 'K';
     return resto.toString();
   }
-
-  // Método para mostrar alertas usando AlertController
-  private async mostrarAlerta(header: string, message: string) {
-    const alert = await this.alertController.create({
-      header: header,
-      message: message,
-      buttons: ['Aceptar']
-    });
-    await alert.present();
-  }
-
 }

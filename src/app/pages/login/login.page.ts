@@ -23,9 +23,14 @@ export class LoginPage implements OnInit {
 
   async login() {
     if (await this.fireService.login(this.email, this.password)) {
-      // Guarda el usuario en localStorage después de un login exitoso
-      localStorage.setItem('usuario', JSON.stringify({ email: this.email }));
-  
+      // Si el login es exitoso, obtenemos los datos del usuario desde Firebase
+      const usuario = await this.fireService.getUsuarioPorCorreo(this.email);
+      
+      // Guardar los datos del usuario en localStorage
+      if (usuario) {
+        localStorage.setItem('usuario', JSON.stringify(usuario));
+      }
+
       this.email = '';
       this.password = '';
       this.router.navigate(['/home']);
@@ -40,10 +45,8 @@ export class LoginPage implements OnInit {
       await alert.present();
     }
   }
-  
-  
+
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
-  
 }

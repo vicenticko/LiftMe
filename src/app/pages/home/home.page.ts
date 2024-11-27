@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
+import { FireService } from 'src/app/services/fire.service';
 import { PokeapiService } from 'src/app/services/pokeapi.service';
 
 @Component({
@@ -11,7 +12,7 @@ export class HomePage {
 
   usuario: any;  
 
-  constructor(private navController: NavController, private alertController: AlertController, private pokeAPI: PokeapiService) {}
+  constructor(private navController: NavController, private alertController: AlertController, private fireService: FireService) {}
 
   pokemon: any;
 
