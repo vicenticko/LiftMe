@@ -18,6 +18,7 @@ export class ReservasPage implements OnInit {
   private geocoder: G.Geocoder | undefined;
   private routingControl: any; // Control de rutas
   usuario: any;
+  tieneViajeActivo: boolean = false;
 
   // Definir tarifa por kilómetro
   private tarifaPorKilometro = 800; // Tarifa a 800 unidades monetarias por kilómetro
@@ -33,7 +34,8 @@ export class ReservasPage implements OnInit {
     distancia_metros: new FormControl('', [Validators.required]),
     tiempo_minutos: new FormControl(0, [Validators.required]),
     estado_viaje: new FormControl('pendiente'),
-    pasajeros: new FormControl([])
+    pasajeros: new FormControl([]),
+    uid_conductor: new FormControl([])
   });
 
   viajes: any[] = [];
@@ -50,6 +52,8 @@ export class ReservasPage implements OnInit {
     this.viaje.controls.asientos_disp.setValue(this.usuario.capacidad_asientos);
     await this.rescatarViajes();
   }
+
+  
 
   initMap() {
 
@@ -130,6 +134,9 @@ export class ReservasPage implements OnInit {
 
   // Método para crear el viaje y mostrar la alerta
   async crearViaje() {
+    // Asignar el uid del conductor al viaje
+    this.viaje.controls.uid_conductor.setValue(this.usuario.uid);
+  
     if (await this.viajeService.createViaje(this.viaje.value)) {
       this.presentAlert(); // Mostrar alerta de confirmación
   
@@ -160,6 +167,7 @@ export class ReservasPage implements OnInit {
 
   async rescatarViajes() {
     this.viajes = await this.viajeService.getViajes();
+    this.tieneViajeActivo = this.viajes.some(v => v.uid_conductor === this.usuario.uid);
   }
 
   goToDetalleReserva(id: string, latitud: number, longitud: number) {
