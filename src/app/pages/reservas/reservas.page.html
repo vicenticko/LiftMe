@@ -9,92 +9,75 @@
 
 <ion-content [fullscreen]="true" style="--background: url('assets/images/fondo-login.png') no-repeat center center / cover;">
 
-  
-    <ion-card *ngIf="(usuario.tiene_auto === 'si' || usuario.tipo_usuario === 'Administrador') && !tieneViajeActivo" class="crear-reserva-container ion-padding">
-      <!-- Sección para crear una reserva, sin acordeón -->
-      <div  class="crear-reserva-container">
-
-        <ion-label>Crear Viaje</ion-label>
-    
-        <!-- Mapa -->
-        <div id="map_html" class="map-container" (click)="initMap()"></div>
-    
-        <!-- Formulario para crear un viaje -->
-        <form [formGroup]="viaje" (ngSubmit)="crearViaje()" class="viaje-form">
-          <ion-item>
-            <ion-label position="stacked">Asientos disp.</ion-label>
-            <ion-input formControlName="asientos_disp" [value]="usuario.capacidad_asientos" readonly></ion-input>
-          </ion-item>
-        
-          <ion-item>
-            <ion-label position="stacked">Valor</ion-label>
-            <ion-input type="number" formControlName="valor" [value]="viaje.controls.valor.value" readonly></ion-input>
-          </ion-item>
-        
-          <ion-item>
-            <ion-label position="stacked">Destino</ion-label>
-            <ion-input formControlName="nombre_destino" readonly></ion-input>
-          </ion-item>
-        
-          <ion-item>
-            <ion-label position="stacked">Distancia (metros)</ion-label>
-            <ion-input formControlName="distancia_metros" readonly></ion-input>
-          </ion-item>
-        
-          <ion-item>
-            <ion-label position="stacked">Minutos</ion-label>
-            <ion-input type="number" formControlName="tiempo_minutos" readonly></ion-input>
-          </ion-item>
-        
-          <ion-button [disabled]="viaje.invalid" type="submit" expand="block" class="custom-button">
-            Crear viaje
-          </ion-button>
-        </form>
-        
-      </div>
-    </ion-card>
-  
-
-
-    <ion-card class="crear-reserva-container ion-padding">
+  <!-- Sección para crear un viaje -->
+  <ion-card *ngIf="(usuario.tiene_auto === 'si' || usuario.tipo_usuario === 'Administrador') && !tieneViajeActivo || (usuario.tiene_auto === 'si' || usuario.tipo_usuario === 'Administrador') && tieneViajeActivo" class="crear-reserva-container ion-padding">
+    <div class="crear-reserva-container">
+      <ion-label class="titulo-viaje">Crear Viaje</ion-label>
       
-      <!-- Sección para mostrar reservas -->
-      <div class="reserva-container ">
+      <!-- Mapa interactivo -->
+      <div id="map_html" class="map-container" (click)="initMap()"></div>
 
-        <ion-label>Viajes</ion-label>
+      <!-- Formulario para crear un viaje -->
+      <form [formGroup]="viaje" (ngSubmit)="crearViaje()" class="viaje-form">
+        <ion-item>
+          <ion-label position="stacked">Asientos disponibles</ion-label>
+          <ion-input formControlName="asientos_disp" [value]="usuario.capacidad_asientos" readonly></ion-input>
+        </ion-item>
 
-        <!-- Verificar si hay reservas disponibles -->
-        <ion-list *ngIf="viajes && viajes.length > 0" class="reserva-list">
-          <ion-item *ngFor="let v of viajes" class="reserva-item">
+        <ion-item>
+          <ion-label position="stacked">Valor</ion-label>
+          <ion-input type="number" formControlName="valor" [value]="viaje.controls.valor.value" readonly></ion-input>
+        </ion-item>
 
-            <ion-label>
-              <strong>{{ getFormattedDestination(v.nombre_destino) }}</strong><br />
-            
-              <ion-note color="green" class="ion-text-wrap">
-                Asientos disponibles: {{ v.asientos_disp }}
-              </ion-note>
-            </ion-label>
-            
+        <ion-item>
+          <ion-label position="stacked">Destino</ion-label>
+          <ion-input formControlName="nombre_destino" readonly></ion-input>
+        </ion-item>
 
-            <div class="metadata-end-wrapper" slot="end">
-              <ion-note color="medium">${{ v.valor  }}</ion-note>
-            </div>
+        <ion-item>
+          <ion-label position="stacked">Distancia (metros)</ion-label>
+          <ion-input formControlName="distancia_metros" readonly></ion-input>
+        </ion-item>
 
-            <!-- Botón para ir a detalle de reserva -->
-            <ion-button (click)="goToDetalleReserva(v.id, v.latitud, v.longitud)" style="color: #9fb740 ;" fill="clear">
-              Ver Detalle
-            </ion-button>
+        <ion-item>
+          <ion-label position="stacked">Minutos</ion-label>
+          <ion-input type="number" formControlName="tiempo_minutos" readonly></ion-input>
+        </ion-item>
 
-          </ion-item>
-        </ion-list>
+        <ion-button [disabled]="viaje.invalid" type="submit" expand="block" class="custom-button">
+          Crear viaje
+        </ion-button>
+      </form>
+    </div>
+  </ion-card>
 
-        <!-- Mensaje cuando no hay reservas -->
-        <ion-text color="medium" *ngIf="viajes && viajes.length === 0" class="empty-message">
-          No hay viajes disponibles en este momento.
-        </ion-text>
+  <!-- Sección para mostrar los viajes disponibles -->
+  <ion-card class="crear-reserva-container ion-padding">
+    <div class="reserva-container">
+      <ion-label class="titulo-viaje">Viajes Disponibles</ion-label>
 
-      </div>
-    </ion-card>
+      <ion-list *ngIf="viajes && viajes.length > 0" class="reserva-list">
+        <ion-item *ngFor="let v of viajes" class="reserva-item">
+          <ion-label class="viaje-label">
+            <strong>{{ getFormattedDestination(v.nombre_destino) }}</strong><br />
+            <ion-note color="green" class="asientos-disponibles">
+              Asientos disponibles: {{ v.asientos_disp }}
+            </ion-note>
+          </ion-label>
 
+          <div class="metadata-end-wrapper" slot="end">
+            <ion-note color="medium" class="precio-viaje">${{ v.valor }}</ion-note>
+          </div>
+
+          <ion-button (click)="goToDetalleReserva(v.id, v.latitud, v.longitud)" class="detalle-btn" fill="clear">
+            Ver Detalle
+          </ion-button>
+        </ion-item>
+      </ion-list>
+
+      <ion-text color="medium" *ngIf="viajes && viajes.length === 0" class="empty-message">
+        No hay viajes disponibles en este momento.
+      </ion-text>
+    </div>
+  </ion-card>
 </ion-content>
-

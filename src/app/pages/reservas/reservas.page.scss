@@ -1,49 +1,102 @@
-#map_html{
-    height: 50vh;
-    width: 100%;
-    //margin: 10% 10% 10% 10%;
+#map_html {
+  height: 50vh;
+  width: 100%;
 }
 
 .map-container {
   height: 300px;
   width: 100%;
-  border: 1px solid #ccc;
   border-radius: 10px;
-
-  margin-bottom: 20px;
-  margin-top: 10px;
+  margin-top: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 ion-content {
-    --padding-start: 16px;
-    --padding-end: 16px;
-  }
+  --padding-start: 16px;
+  --padding-end: 16px;
+}
+
+.titulo-viaje {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.crear-reserva-container {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.viaje-form ion-item {
+  margin-bottom: 20px;
+}
+
+.custom-button {
+  --background: #9fb740;
+  margin-top: 20px;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 12px 0;
+}
+
+.reserva-container {
+  padding: 15px;
+}
+
+.reserva-list {
+  margin-top: 15px;
+}
+
+.reserva-item {
+  border-radius: 12px;
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
   
-  .accordion-container {
-    margin-top: 20px;
+  &:hover {
+    transform: translateY(-5px);
   }
+}
+
+.viaje-label {
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+.asientos-disponibles {
+  font-size: 0.9em;
+  color: #2c9e4f;
+}
+
+.precio-viaje {
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+.detalle-btn {
+  color: #9fb740;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  font-size: 0.95em;
+  border: 2px solid #9fb740;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
   
-  .viaje-form ion-item {
-    margin-bottom: 16px;
+  &:hover {
+    background-color: #9fb740;
+    color: white;
   }
-  
-  .custom-button {
-    --background: #9fb740;
-    margin-top: 20px;
-  }
-  
-  .reserva-list {
-    margin-top: 10px;
-  }
-  
-  .reserva-item {
-    border-radius: 10px;
-    margin-bottom: 12px;
-    background: #f5f5f5;
-    padding: 10px;
-  }
-  
-  .empty-message {
-    text-align: center;
-    margin-top: 20px;
-  }
+}
+
+.empty-message {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 1.2em;
+  color: #6c6c6c;
+}

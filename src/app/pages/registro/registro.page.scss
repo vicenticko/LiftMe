@@ -1,18 +1,68 @@
 .transparent-card {
-    background-color: rgba(0, 0, 0, 0.7); /* Negro con 60% de opacidad */
-    border-radius: 10px;  /* Bordes redondeados */
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  /* Sombra para dar más profundidad */
-    color: white;  /* Texto en blanco para mayor legibilidad */
-  }
-  
-  ion-item {
-    --color: white; /* Cambia el color de los ítems a blanco */
-    --background: transparent; /* Fondo transparente en los inputs */
-    --border-color: rgba(255, 255, 255, 0.5); /* Bordes de los inputs */
-  }
-  
-  ion-input {
-    color: white; /* Texto en blanco dentro de los inputs */
-  }
-  
+  background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro con 70% de opacidad */
+  border-radius: 20px;  /* Bordes redondeados */
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  /* Sombra sutil para dar profundidad */
+  color: white;  /* Texto blanco para contraste */
+}
+
+ion-item {
+  --color: white; /* Color de texto blanco */
+  --background: transparent; /* Fondo transparente para inputs */
+  --border-color: rgba(255, 255, 255, 0.5); /* Bordes con opacidad para los inputs */
+  margin-bottom: 15px; /* Espaciado entre inputs */
+}
+
+ion-input {
+  color: white; /* Color blanco para el texto de los inputs */
+}
+
+ion-select {
+  color: white;
+}
+
+ion-button {
+  --background: rgb(159, 183, 64, 1); /* Botón con el mismo color de la paleta */
+  --color: white; /* Texto blanco */
+  margin-top: 20px; /* Espaciado superior */
+  border-radius: 5px; /* Bordes redondeados */
+  transition: all 0.3s ease; /* Transición suave */
+}
+
+ion-button:hover {
+  --background: rgb(139, 164, 58, 1); /* Color ligeramente más oscuro al pasar el mouse */
+}
+
+input[type="file"] {
+  display: none; /* Ocultar el input de archivo */
+}
+
+ion-radio-group {
+  --padding-start: 0;
+  --padding-end: 0;
+  --color: white; /* Color blanco para las etiquetas */
+}
+
+ion-radio {
+  --color: white;
+}
+
+ion-label {
+  font-size: 14px;
+  color: white;
+}
+
+ion-avatar {
+  margin-bottom: 20px;
+  width: 100px;
+  height: 100px;
+}
+
+ion-label, ion-select, ion-item {
+  font-size: 16px;
+}
+
+ion-title {
+  font-size: 24px;
+  color: white;
+}

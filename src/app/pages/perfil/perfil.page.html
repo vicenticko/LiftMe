@@ -8,6 +8,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" style="--background: url('assets/images/fondo-login.png') no-repeat center center / cover;">
+  
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Perfil</ion-title>
@@ -40,29 +41,30 @@
         <ion-label class="info-label">Marca del Auto: <strong>{{ usuario.marca_auto }}</strong></ion-label>
       </div>
     </div>
-    <ion-button (click)="navigateToModificarPerfil()" size="block" style="--background: rgb(159,183,64,255); margin-top: 20px;">MODIFICAR PERFIL</ion-button>
+    
+    <ion-button (click)="navigateToModificarPerfil()" size="block" class="modificar-btn">
+      MODIFICAR PERFIL
+    </ion-button>
   
-    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    <div class="qr-code-wrapper">
       <qrcode
-          [qrdata]="'https://liftme-2a4be.web.app'"
-          [allowEmptyString]="true"
-          [ariaLabel]="'QR Code image with the following content...'"
-          [cssClass]="'center'"
-          [colorDark]="'#000000ff'"
-          [colorLight]="'#ffffffff'"
-          [elementType]="'canvas'"
-          [errorCorrectionLevel]="'M'"
-          [imageSrc]="'./assets/images/locorene.jpg'"
-          [imageHeight]="75"
-          [imageWidth]="75"
-          [margin]="4"
-          [scale]="1"
-          [title]="'A custom title attribute'"
-          [width]="300"
-        ></qrcode>
-      </div>
+        [qrdata]="'https://liftme-2a4be.web.app'"
+        [allowEmptyString]="true"
+        [ariaLabel]="'QR Code image with the following content...'"
+        [cssClass]="'center'"
+        [colorDark]="'#000000ff'"
+        [colorLight]="'#ffffffff'"
+        [elementType]="'canvas'"
+        [errorCorrectionLevel]="'M'"
+        [imageSrc]="'./assets/images/locorene.jpg'"
+        [imageHeight]="75"
+        [imageWidth]="75"
+        [margin]="4"
+        [scale]="1"
+        [title]="'A custom title attribute'"
+        [width]="300"
+      ></qrcode>
+    </div>
   </div>
-
-  
 
 </ion-content>
