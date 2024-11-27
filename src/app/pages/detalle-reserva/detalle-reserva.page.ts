@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as L from 'leaflet';
+import { ViajeService } from 'src/app/services/viaje.service';
 
 @Component({
   selector: 'app-detalle-reserva',
@@ -11,7 +12,7 @@ export class DetalleReservaPage implements OnInit {
   private map: L.Map | undefined;
   // Define cualquier otra propiedad necesaria aquí, como geocoder o routingControl.
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private viajeService: ViajeService ) {}
 
   ngOnInit() {
     this.initMap(); // Inicializa el mapa cuando se carga la página
@@ -34,6 +35,10 @@ export class DetalleReservaPage implements OnInit {
 
   toViajes() {
     this.router.navigate(['/home/viajes']);
+  }
+
+  async eliminar(id_eliminar:string){
+    this.viajeService.deleteViaje(id_eliminar);
   }
 
 }

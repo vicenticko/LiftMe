@@ -10,7 +10,7 @@
 <ion-content [fullscreen]="true" style="--background: url('assets/images/fondo-login.png') no-repeat center center / cover;">
 
   <!-- Sección para crear un viaje -->
-  <ion-card *ngIf="(usuario.tiene_auto === 'si' || usuario.tipo_usuario === 'Administrador') && !tieneViajeActivo || (usuario.tiene_auto === 'si' || usuario.tipo_usuario === 'Administrador') && tieneViajeActivo" class="crear-reserva-container ion-padding">
+  <ion-card *ngIf="usuario.tipo_usuario === 'Administrador' || (usuario.tipo_usuario === 'Usuario' && usuario.tiene_auto === 'si' && !tieneViajeActivo)" class="crear-reserva-container ion-padding">
     <div class="crear-reserva-container">
       <ion-label class="titulo-viaje">Crear Viaje</ion-label>
       
