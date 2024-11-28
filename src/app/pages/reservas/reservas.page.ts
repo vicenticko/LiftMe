@@ -6,6 +6,7 @@ import * as G from 'leaflet-control-geocoder';
 import 'leaflet-routing-machine';
 import { ViajeService } from 'src/app/services/viaje.service';
 import { NavController, AlertController } from '@ionic/angular';
+import { FireViajeService } from 'src/app/services/fire-viaje.service';
 
 @Component({
   selector: 'app-reservas',
@@ -41,7 +42,8 @@ export class ReservasPage implements OnInit {
   viajes: any[] = [];
 
   constructor(
-    private viajeService: ViajeService, 
+    //private viajeService: ViajeService,
+    private fireViajeService: FireViajeService, 
     private navController: NavController,
     private alertController: AlertController
   ) { }
@@ -137,7 +139,7 @@ export class ReservasPage implements OnInit {
     // Asignar el uid del conductor al viaje
     this.viaje.controls.uid_conductor.setValue(this.usuario.uid);
   
-    if (await this.viajeService.createViaje(this.viaje.value)) {
+    if (await this.fireViajeService.createViaje(this.viaje.value)) {
       this.presentAlert(); // Mostrar alerta de confirmación
   
       // Restablecer el formulario, excluyendo el campo de asientos disponibles
@@ -166,7 +168,7 @@ export class ReservasPage implements OnInit {
   }
 
   async rescatarViajes() {
-    this.viajes = await this.viajeService.getViajes();
+    this.viajes = await this.fireViajeService.getViajes();
     this.tieneViajeActivo = this.viajes.some(v => v.uid_conductor === this.usuario.uid);
   }
   

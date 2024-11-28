@@ -52,32 +52,36 @@
   </ion-card>
 
   <!-- Sección para mostrar los viajes disponibles -->
-  <ion-card class="crear-reserva-container ion-padding">
-    <div class="reserva-container">
-      <ion-label class="titulo-viaje">Viajes Disponibles</ion-label>
+<ion-card class="crear-reserva-container ion-padding">
+  <div class="reserva-container">
+    <ion-label class="titulo-viaje">Viajes Disponibles</ion-label>
 
-      <ion-list *ngIf="viajes && viajes.length > 0" class="reserva-list">
-        <ion-item *ngFor="let v of viajes" class="reserva-item">
-          <ion-label class="viaje-label">
-            <strong>{{ getFormattedDestination(v.nombre_destino) }}</strong><br />
-            <ion-note color="green" class="asientos-disponibles">
-              Asientos disponibles: {{ v.asientos_disp }}
-            </ion-note>
-          </ion-label>
+    <ion-list *ngIf="viajes && viajes.length > 0" class="reserva-list">
+      <ion-item *ngFor="let v of viajes" class="reserva-item">
+        <ion-label class="viaje-label">
+          <strong>{{ getFormattedDestination(v.nombre_destino) }}</strong><br />
+          <ion-note color="green" class="asientos-disponibles">
+            Asientos disponibles: {{ v.asientos_disp }}
+          </ion-note><br />
+          <ion-note color="primary" class="nombre-conductor">
+            Conductor: {{ v.conductor }}
+          </ion-note>
+        </ion-label>
 
-          <div class="metadata-end-wrapper" slot="end">
-            <ion-note color="medium" class="precio-viaje">${{ v.valor }}</ion-note>
-          </div>
+        <div class="metadata-end-wrapper" slot="end">
+          <ion-note color="medium" class="precio-viaje">${{ v.valor }}</ion-note>
+        </div>
 
-          <ion-button (click)="goToDetalleReserva(v.id, v.latitud, v.longitud)" class="detalle-btn" fill="clear">
-            Ver Detalle
-          </ion-button>
-        </ion-item>
-      </ion-list>
+        <ion-button (click)="goToDetalleReserva(v.id, v.latitud, v.longitud)" class="detalle-btn" fill="clear">
+          Ver Detalle
+        </ion-button>
+      </ion-item>
+    </ion-list>
 
-      <ion-text color="medium" *ngIf="viajes && viajes.length === 0" class="empty-message">
-        No hay viajes disponibles en este momento.
-      </ion-text>
-    </div>
-  </ion-card>
+    <ion-text color="medium" *ngIf="viajes && viajes.length === 0" class="empty-message">
+      No hay viajes disponibles en este momento.
+    </ion-text>
+  </div>
+</ion-card>
+
 </ion-content>

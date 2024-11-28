@@ -7,7 +7,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class FireService {
 
-  constructor(private fireStore: AngularFirestore, private fireAuth: AngularFireAuth, ) { }
+  constructor(private fireStore: AngularFirestore, private fireAuth: AngularFireAuth) { }
 
   async crearUsuario(usuario: any){
     const docRef = this.fireStore.collection('usuarios').doc(usuario.rut);

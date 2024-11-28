@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, NavController } from '@ionic/angular';
 import * as L from 'leaflet';
-import { ViajeService } from 'src/app/services/viaje.service';
+import { FireViajeService } from 'src/app/services/fire-viaje.service'; // Importamos el nuevo servicio
 
 @Component({
   selector: 'app-detalle-reserva',
@@ -11,25 +11,23 @@ import { ViajeService } from 'src/app/services/viaje.service';
 })
 export class DetalleReservaPage implements OnInit {
   private map: L.Map | undefined;
-  // Define cualquier otra propiedad necesaria aquí, como geocoder o routingControl.
   viaje: any;
 
   constructor(
-    private activatedRoute: ActivatedRoute,  // Inyectado correctamente
+    private activatedRoute: ActivatedRoute,
     private router: Router, 
-    private viajeService: ViajeService,
     private alertController: AlertController,
-    private navController: NavController
+    private navController: NavController,
+    private fireViajeService: FireViajeService // Usamos FireViajeService en lugar de ViajeService
   ) {}
 
   async ngOnInit() {
     this.initMap(); // Inicializa el mapa cuando se carga la página
-    // Obtener el id del viaje desde la URL
     const idViaje = this.activatedRoute.snapshot.paramMap.get('id');
     
     if (idViaje) {
-      // Obtener el viaje usando el servicio
-      this.viaje = await this.viajeService.getViaje(idViaje);
+      // Obtener el viaje desde Firestore utilizando fireViajeService
+      this.viaje = await this.fireViajeService.getViaje(idViaje);
     }
   }
 
@@ -67,12 +65,11 @@ export class DetalleReservaPage implements OnInit {
         {
           text: 'Eliminar',
           handler: async () => {
-            // Llamar al servicio de eliminación
-            const result = await this.viajeService.deleteViaje(id);
+            // Llamar al servicio de eliminación usando FireViajeService
+            const result = await this.fireViajeService.deleteViaje(id);
             if (result) {
-              // Si se eliminó correctamente, redirigir y actualizar la lista de viajes
               console.log('Viaje eliminado');
-              // Redirigir a la página de reservas y actualizar la lista de viajes
+              // Redirigir a la página de reservas después de eliminar el viaje
               this.navController.navigateBack('/home/reservas');
             } else {
               console.error('No se pudo eliminar el viaje');
@@ -84,5 +81,4 @@ export class DetalleReservaPage implements OnInit {
   
     await alert.present();
   }
-  
 }
