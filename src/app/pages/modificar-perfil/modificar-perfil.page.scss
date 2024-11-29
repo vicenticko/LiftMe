@@ -1,0 +1,81 @@
+/* Fondo y estructura general */
+
+.profile-container {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semi-transparente */
+    border-radius: 12px; /* Bordes redondeados */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra para efecto de elevación */
+  }
+  
+  .profile-icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+    margin-top: 25px;
+  }
+  
+  .profile-icon {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 4px solid #9fb740; /* Borde dorado para el avatar */
+  }
+  
+  .profile-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .info-title {
+    font-size: 1.5em;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  .info-label {
+    display: block;
+    font-size: 1em;
+    margin: 10px 0;
+    color: #666;
+  }
+  
+  .car-info {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 2px solid #ddd;
+  }
+  
+  .guardar-btn {
+    --background: #9fb740;
+    margin-top: 30px;
+    padding: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 8px;
+    transition: background-color 0.3s, color 0.3s;
+  
+    &:hover {
+      background-color: #8b9e3a;
+      color: white;
+    }
+  }
+  
+  .qr-code-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+  }
+  
+  .file-input {
+    display: none;
+  }
+  
+  .black-text {
+    color: black;
+  }
+  
