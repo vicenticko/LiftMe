@@ -69,6 +69,10 @@ export class DetalleReservaPage implements OnInit {
             const result = await this.fireViajeService.deleteViaje(id);
             if (result) {
               console.log('Viaje eliminado');
+              
+              // Eliminar el viaje del localStorage
+              localStorage.removeItem('viaje'); // Elimina el viaje almacenado en localStorage
+              
               // Redirigir a la página de reservas después de eliminar el viaje
               this.navController.navigateBack('/home/reservas');
             } else {
@@ -81,4 +85,5 @@ export class DetalleReservaPage implements OnInit {
   
     await alert.present();
   }
+  
 }

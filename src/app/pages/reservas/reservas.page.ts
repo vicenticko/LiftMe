@@ -139,8 +139,16 @@ export class ReservasPage implements OnInit {
     // Asignar el uid del conductor al viaje
     this.viaje.controls.uid_conductor.setValue(this.usuario.uid);
   
-    if (await this.fireViajeService.createViaje(this.viaje.value)) {
-      this.presentAlert(); // Mostrar alerta de confirmación
+    // Crear el viaje en Firebase
+    const viajeCreado = await this.fireViajeService.createViaje(this.viaje.value);
+  
+    if (viajeCreado) {
+      // Mostrar alerta de confirmación
+      this.presentAlert();
+  
+      // Guardar el viaje en localStorage
+      const viaje = this.viaje.value;
+      localStorage.setItem('viaje', JSON.stringify(viaje)); // Guardamos el viaje en localStorage
   
       // Restablecer el formulario, excluyendo el campo de asientos disponibles
       const asientosDisp = this.viaje.controls.asientos_disp.value; // Guardar el valor actual de asientos disponibles
@@ -150,9 +158,11 @@ export class ReservasPage implements OnInit {
       // Reiniciar el mapa
       this.resetMap();
   
-      await this.rescatarViajes(); // Actualizar la lista de viajes
+      // Actualizar la lista de viajes
+      await this.rescatarViajes();
     }
   }
+  
   
   resetMap() {
     if (this.map) {
