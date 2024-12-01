@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FireViajeService } from 'src/app/services/fire-viaje.service';
 
 
 @Component({
@@ -8,13 +9,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViajesPage implements OnInit {
 
-  pokemon: any;
+  tieneViajeActivo: boolean = false;
+  usuario: any;
+
+  viajes: any[] = [];
   
-  constructor() { }
+  constructor(private fireViajeService: FireViajeService) { }
 
-  ngOnInit() {
-    
+  async ngOnInit() {
+    await this.rescatarViajes();
   }
-
+  
+  async rescatarViajes() {
+    const viajesStorage = localStorage.getItem('viajes');
+    
+    if (viajesStorage) {
+      // Si existen viajes en el localStorage, los parseamos y los asignamos a this.viajes
+      this.viajes = JSON.parse(viajesStorage);
+      this.tieneViajeActivo = this.viajes.some(v => v.uid_conductor === this.usuario.uid);
+    } else {
+      
+      // Guardamos los viajes en localStorage para futuras consultas
+      localStorage.setItem('viajes', JSON.stringify(this.viajes));
+    }
+  }
 
 }

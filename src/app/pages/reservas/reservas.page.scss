@@ -73,10 +73,7 @@ ion-content {
   color: #2c9e4f;
 }
 
-.precio-viaje {
-  font-size: 1.2em;
-  font-weight: 600;
-}
+
 
 .detalle-btn {
   color: #9fb740;
@@ -128,10 +125,7 @@ ion-content {
     font-size: 1em;
   }
 
-  .precio-viaje {
-    font-size: 1em;
-  }
-
+  
   .detalle-btn {
     padding: 6px 12px;
     font-size: 0.9em;
@@ -140,4 +134,15 @@ ion-content {
   .empty-message {
     font-size: 1em;
   }
+}
+.precio-viaje {
+  font-size: 1.2em;
+  font-weight: 600;
+  margin-bottom: 5px; /* Espacio entre el precio en pesos y dólares */
+}
+
+.precio-viaje + .precio-viaje {
+  font-size: 1.1em;
+  color: #0066cc; /* Un color diferente para los dólares */
+  font-weight: 500;
 }

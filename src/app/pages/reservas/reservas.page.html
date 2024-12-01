@@ -52,8 +52,8 @@
   </ion-card>
 
   <!-- Sección para mostrar los viajes disponibles -->
-<ion-card class="crear-reserva-containergti">
-
+<ion-card class="crear-reserva-container ion-padding">
+  <div class="reserva-container">
     <ion-label class="titulo-viaje">Viajes Disponibles</ion-label>
 
     <ion-list *ngIf="viajes && viajes.length > 0" class="reserva-list">
@@ -81,7 +81,7 @@
     <ion-text color="medium" *ngIf="viajes && viajes.length === 0" class="empty-message">
       No hay viajes disponibles en este momento.
     </ion-text>
-
+  </div>
 </ion-card>
 
 </ion-content>

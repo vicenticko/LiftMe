@@ -50,7 +50,15 @@ export class DetalleReservaPage implements OnInit {
   }
 
   toViajes() {
-    this.router.navigate(['/home/viajes']);
+    this.fireViajeService.getViajes().then(viajes => {
+      // Guardar los viajes en localStorage
+      localStorage.setItem('viajes', JSON.stringify(viajes));
+  
+      // Navegar a la página de viajes
+      this.router.navigate(['/home/viajes']);
+    }).catch(error => {
+      console.error('Error al obtener los viajes', error);
+    });
   }
 
   async eliminar(id: string) {
