@@ -26,12 +26,12 @@ ion-content {
 .crear-reserva-container {
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 12px;
-  padding: 20px;
+  padding: 12px 16px;
   margin-bottom: 20px;
 }
 
 .viaje-form ion-item {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .custom-button {
@@ -39,11 +39,11 @@ ion-content {
   margin-top: 20px;
   text-transform: uppercase;
   font-weight: bold;
-  padding: 12px 0;
+  padding: 10px 0;
 }
 
 .reserva-container {
-  padding: 15px;
+  padding: 10px;
 }
 
 .reserva-list {
@@ -53,7 +53,7 @@ ion-content {
 .reserva-item {
   border-radius: 12px;
   background: #fff;
-  padding: 20px;
+  padding: 15px;
   margin-bottom: 15px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
@@ -99,4 +99,45 @@ ion-content {
   margin-top: 20px;
   font-size: 1.2em;
   color: #6c6c6c;
+}
+
+/* Media queries para mejorar la experiencia en dispositivos móviles */
+@media (max-width: 576px) {
+  .crear-reserva-container, .reserva-container {
+    padding: 10px;
+  }
+
+  .titulo-viaje {
+    font-size: 1.2em;
+  }
+
+  .viaje-form ion-item {
+    margin-bottom: 12px;
+  }
+
+  .custom-button {
+    padding: 8px 0;
+  }
+
+  .reserva-item {
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+
+  .viaje-label {
+    font-size: 1em;
+  }
+
+  .precio-viaje {
+    font-size: 1em;
+  }
+
+  .detalle-btn {
+    padding: 6px 12px;
+    font-size: 0.9em;
+  }
+
+  .empty-message {
+    font-size: 1em;
+  }
 }

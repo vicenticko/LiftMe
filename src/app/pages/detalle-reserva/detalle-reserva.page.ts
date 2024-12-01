@@ -11,7 +11,10 @@ import { FireViajeService } from 'src/app/services/fire-viaje.service'; // Impor
 })
 export class DetalleReservaPage implements OnInit {
   private map: L.Map | undefined;
+  usuario: any;
   viaje: any;
+  viajes: any[] = [];
+  tieneViajeActivo: boolean = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -75,6 +78,8 @@ export class DetalleReservaPage implements OnInit {
               
               // Redirigir a la página de reservas después de eliminar el viaje
               this.navController.navigateBack('/home/reservas');
+              await this.rescatarViajes();
+              
             } else {
               console.error('No se pudo eliminar el viaje');
             }
@@ -85,5 +90,10 @@ export class DetalleReservaPage implements OnInit {
   
     await alert.present();
   }
-  
+ 
+  async rescatarViajes() {
+    this.viajes = await this.fireViajeService.getViajes();
+    this.tieneViajeActivo = this.viajes.some(v => v.uid_conductor === this.usuario.uid);
+  }
+
 }

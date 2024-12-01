@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { FireService } from 'src/app/services/fire.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
@@ -23,7 +24,7 @@ export class ModificarPerfilPage implements OnInit {
   };
   profileImage: string = 'assets/images/pordefectoperfil.png';
 
-  constructor(private usuarioService: UsuarioService, private alertController: AlertController, private router: Router) { }
+  constructor(private usuarioService: UsuarioService, private alertController: AlertController, private router: Router, private fireService: FireService) { }
 
   ngOnInit() {
     // Cargar datos del usuario desde localStorage al inicializar la página
@@ -48,25 +49,50 @@ export class ModificarPerfilPage implements OnInit {
     this.router.navigate(['/home/perfil/modificar-perfil']); // Navegar a la página editar-perfil
   }
   
-  guardarPerfil() {
+  async guardarPerfil() {
     console.log('Datos del usuario antes de guardar:', this.usuario);
     try {
       if (this.validarCampos()) {
         // Guardar los datos en localStorage
         localStorage.setItem('usuario', JSON.stringify(this.usuario));
         console.log('Datos guardados en localStorage:', localStorage.getItem('usuario'));
-        alert('Información guardada con éxito.');
   
+        // Actualizar los datos en Firebase
+        await this.fireService.updateUsuario(this.usuario);
+        console.log('Datos actualizados en Firebase.');
+  
+        // Crear la alerta de éxito
+        const alert = await this.alertController.create({
+          header: 'Éxito',
+          message: 'Información guardada con éxito.',
+          buttons: ['OK']
+        });
+        await alert.present();
+    
         // Redirigir a la página de perfil
-        this.router.navigate(['/home/perfil']); // Cambia '/home/perfil' según tu configuración de rutas
+        this.router.navigate(['/home/perfil']);
       } else {
-        alert('Por favor, completa todos los campos obligatorios.');
+        // Crear la alerta de error si no se completan los campos
+        const alert = await this.alertController.create({
+          header: 'Error',
+          message: 'Por favor, completa todos los campos obligatorios.',
+          buttons: ['OK']
+        });
+        await alert.present();
       }
     } catch (error) {
-      console.error('Error al guardar en localStorage:', error);
-      alert('Ocurrió un error al guardar la información.');
+      console.error('Error al guardar en Firebase:', error);
+    
+      // Crear la alerta de error en caso de que ocurra un problema al guardar
+      const alert = await this.alertController.create({
+        header: 'Error',
+        message: 'Ocurrió un error al guardar la información.',
+        buttons: ['OK']
+      });
+      await alert.present();
     }
   }
+  
   
    
 
