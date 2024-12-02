@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { FireService } from 'src/app/services/fire.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { UserCarService } from 'src/app/services/user-car.service'; // Asegúrate de importar correctamente el servicio de autos
 
 @Component({
   selector: 'app-modificar-perfil',
@@ -23,8 +24,17 @@ export class ModificarPerfilPage implements OnInit {
     capacidad_asientos: '',
   };
   profileImage: string = 'assets/images/pordefectoperfil.png';
+  carBrands: string[] = [];  // Inicializar como array vacío
+ 
+  
 
-  constructor(private usuarioService: UsuarioService, private alertController: AlertController, private router: Router, private fireService: FireService) { }
+  constructor(
+    private usuarioService: UsuarioService,
+    private alertController: AlertController,
+    private router: Router,
+    private fireService: FireService,
+    private userCarService: UserCarService // Asegúrate de inyectar el servicio de autos
+  ) { }
 
   ngOnInit() {
     // Cargar datos del usuario desde localStorage al inicializar la página
@@ -32,6 +42,22 @@ export class ModificarPerfilPage implements OnInit {
     if (datosUsuario) {
       this.usuario = JSON.parse(datosUsuario); // Convertir el JSON en un objeto
     }
+
+    // Cargar marcas de autos al iniciar
+    this.GetCarBrands();
+    
+  }
+
+  // Función para cargar marcas de autos desde la API
+  GetCarBrands() {
+    this.userCarService.getCarBrands().subscribe(
+      (response: any) => {
+        this.carBrands = response; // Aquí deberías asignar el resultado a carBrands
+      },
+      (error) => {
+        console.error('Error al cargar las marcas de autos:', error);
+      }
+    );
   }
 
   onFileSelected(event: any) {
@@ -45,10 +71,6 @@ export class ModificarPerfilPage implements OnInit {
     }
   }
 
-  navigateToModificarPerfil() {
-    this.router.navigate(['/home/perfil/modificar-perfil']); // Navegar a la página editar-perfil
-  }
-  
   async guardarPerfil() {
     console.log('Datos del usuario antes de guardar:', this.usuario);
     try {
@@ -56,11 +78,11 @@ export class ModificarPerfilPage implements OnInit {
         // Guardar los datos en localStorage
         localStorage.setItem('usuario', JSON.stringify(this.usuario));
         console.log('Datos guardados en localStorage:', localStorage.getItem('usuario'));
-  
+
         // Actualizar los datos en Firebase
         await this.fireService.updateUsuario(this.usuario);
         console.log('Datos actualizados en Firebase.');
-  
+
         // Crear la alerta de éxito
         const alert = await this.alertController.create({
           header: 'Éxito',
@@ -68,7 +90,7 @@ export class ModificarPerfilPage implements OnInit {
           buttons: ['OK']
         });
         await alert.present();
-    
+
         // Redirigir a la página de perfil
         this.router.navigate(['/home/perfil']);
       } else {
@@ -82,7 +104,7 @@ export class ModificarPerfilPage implements OnInit {
       }
     } catch (error) {
       console.error('Error al guardar en Firebase:', error);
-    
+
       // Crear la alerta de error en caso de que ocurra un problema al guardar
       const alert = await this.alertController.create({
         header: 'Error',
@@ -92,9 +114,6 @@ export class ModificarPerfilPage implements OnInit {
       await alert.present();
     }
   }
-  
-  
-   
 
   validarCampos(): boolean {
     if (!this.usuario.rut || !this.usuario.nombre || !this.usuario.apellido || !this.usuario.correo_electronico) {
@@ -109,4 +128,3 @@ export class ModificarPerfilPage implements OnInit {
     return true;
   }
 }
-

@@ -4,6 +4,7 @@ import { AlertController } from '@ionic/angular';
 import { PokeapiService } from 'src/app/services/pokeapi.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
+
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.page.html',
@@ -15,6 +16,8 @@ export class PerfilPage implements OnInit {
   usuario: any;  
   usuarios: any[] = [];
   botonModificar: boolean = true;
+  breeds: any[] = []; // Lista de razas
+  randomImage: string = ''; // Imagen aleatoria
 
   profileImage: string = 'assets/images/pordefectoperfil.png';
 
@@ -23,6 +26,7 @@ export class PerfilPage implements OnInit {
   ngOnInit() {
     this.usuario = JSON.parse(localStorage.getItem("usuario") || '');
     this.getPokemon();
+    
   }
 
   getPokemon(): void {
@@ -34,6 +38,8 @@ export class PerfilPage implements OnInit {
       }
     );
   }
+
+  
 
   onFileSelected(event: Event) {
     const file = (event.target as HTMLInputElement).files?.[0];
@@ -49,5 +55,8 @@ export class PerfilPage implements OnInit {
   navigateToModificarPerfil() {
     this.router.navigate(['/home/perfil/modificar-perfil']); // Navegar a la página editar-perfil
   }
+
+
+
 
 }
