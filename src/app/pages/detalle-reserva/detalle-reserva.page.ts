@@ -35,17 +35,27 @@ export class DetalleReservaPage implements OnInit {
   }
 
   initMap() {
+    const mapContainerId = 'map_html'; // ID del contenedor en el HTML
+  
+    // Verifica si el mapa ya está inicializado y destrúyelo
+    if (this.map) {
+      this.map.remove(); // Elimina el mapa existente
+      this.map = undefined;
+    }
+  
     try {
-      this.map = L.map("map_html").locate({ setView: true, maxZoom: 16 });
-
+      // Inicializa el mapa en el contenedor
+      this.map = L.map(mapContainerId).locate({ setView: true, maxZoom: 16 });
+  
       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       }).addTo(this.map);
-
-      // Aquí podrías añadir el marcador o configuración de mapa adicional.
+  
+      // Configuración adicional del mapa (si aplica)
+      console.log('Mapa inicializado correctamente.');
     } catch (error) {
-      console.error(error);
+      console.error('Error al inicializar el mapa:', error);
     }
   }
 
@@ -102,6 +112,15 @@ export class DetalleReservaPage implements OnInit {
   async rescatarViajes() {
     this.viajes = await this.fireViajeService.getViajes();
     this.tieneViajeActivo = this.viajes.some(v => v.uid_conductor === this.usuario.uid);
+  }
+
+  ionViewWillLeave() {
+    // Destruye el mapa al salir de la página
+    if (this.map) {
+      this.map.remove();
+      this.map = undefined;
+      console.log('Mapa eliminado correctamente.');
+    }
   }
 
 }

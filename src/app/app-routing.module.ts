@@ -33,13 +33,16 @@ const routes: Routes = [
     path: 'home/perfil/modificar-perfil',
     loadChildren: () => import('./pages/modificar-perfil/modificar-perfil.module').then( m => m.ModificarPerfilPageModule)
   },
-  
-
+  {
+    path: 'home/viajes/detalle-viaje/:id',
+    loadChildren: () => import('./pages/detalle-viaje/detalle-viaje.module').then( m => m.DetalleViajePageModule)
+  },
 
   {
     path: '**', //<----Siempre al final
     loadChildren: () => import('./pages/error404/error404.module').then( m => m.Error404PageModule)
   },
+
   
 
 

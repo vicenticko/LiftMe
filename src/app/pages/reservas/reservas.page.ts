@@ -196,4 +196,13 @@ export class ReservasPage implements OnInit {
     return destino;  // Devuelve la dirección original si no tiene el formato esperado
   }
 
+  ionViewWillLeave() {
+    // Destruye el mapa al salir de la página
+    if (this.map) {
+      this.map.remove();
+      this.map = undefined;
+      console.log('Mapa eliminado correctamente.');
+    }
+  }
+
 }

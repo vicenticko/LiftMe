@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Modificar Perfil</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -26,10 +29,10 @@
       <ion-card-title>Detalles del Usuario</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <ion-label [(ngModel)]="usuario.rut" placeholder="RUT"></ion-label>
-      <ion-input [(ngModel)]="usuario.nombre" placeholder="Nombre"></ion-input>
-      <ion-input [(ngModel)]="usuario.apellido" placeholder="Apellido"></ion-input>
-      <ion-input [(ngModel)]="usuario.correo_electronico" placeholder="Correo Electrónico"></ion-input>
+      <ion-input [(ngModel)]="usuario.rut" aria-placeholder="RUT"></ion-input>
+      <ion-input [(ngModel)]="usuario.nombre" ariaplaceholder="Nombre"></ion-input>
+      <ion-input [(ngModel)]="usuario.apellido" ariaplaceholder="Apellido"></ion-input>
+      <ion-input [(ngModel)]="usuario.correo_electronico" ariaplaceholder="Correo Electrónico"></ion-input>
     </ion-card-content>
   </ion-card>
   

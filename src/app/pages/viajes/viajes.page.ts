@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 import { FireViajeService } from 'src/app/services/fire-viaje.service';
 
 
@@ -14,7 +16,7 @@ export class ViajesPage implements OnInit {
 
   viajes: any[] = [];
   
-  constructor(private fireViajeService: FireViajeService) { }
+  constructor(private fireViajeService: FireViajeService, private router: Router,private navController: NavController) { }
 
   async ngOnInit() {
     await this.rescatarViajes();
@@ -32,6 +34,11 @@ export class ViajesPage implements OnInit {
       // Guardamos los viajes en localStorage para futuras consultas
       localStorage.setItem('viajes', JSON.stringify(this.viajes));
     }
+  }
+
+  detalleViaje(id: string){
+    //this.router.navigate(['/home/viajes/detalle']);
+    this.navController.navigateForward(`/home/viajes/detalle-viaje/${id}`);
   }
 
 }

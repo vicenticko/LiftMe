@@ -49,9 +49,9 @@
     </ion-button>
     <div class="qr-code-wrapper">
       <qrcode
-        [qrdata]="'https://www.duoc.cl/'"
+        [qrdata]="userDataQr"
         [allowEmptyString]="true"
-        [ariaLabel]="'QR Code image with the following content...'"
+        [ariaLabel]="'Código QR con información del usuario'"
         [cssClass]="'center'"
         [colorDark]="'#000000ff'"
         [colorLight]="'#ffffffff'"
@@ -59,7 +59,7 @@
         [errorCorrectionLevel]="'M'"
         [margin]="4"
         [scale]="1"
-        [title]="'A custom title attribute'"
+        [title]="'Información del usuario'"
         [width]="300"
       ></qrcode>
     </div>

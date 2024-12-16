@@ -26,7 +26,7 @@
             <ion-note color="medium" class="precio-viaje">${{ v.valor }}</ion-note>
           </div>
   
-          <ion-button class="detalle-btn" fill="clear">
+          <ion-button class="detalle-btn" fill="clear" (click)="detalleViaje(v.id)">
             Ver Detalle
           </ion-button>
         </ion-item>
