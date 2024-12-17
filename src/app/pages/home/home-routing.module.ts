@@ -26,7 +26,11 @@ const routes: Routes = [
       {
         path: 'administrar-fire',
         loadChildren: () => import('../administrar-fire/administrar-fire.module').then( m => m.AdministrarFirePageModule)
-      }
+      },
+      {
+        path: 'administrar-viajes',
+        loadChildren: () => import('../administrar-viajes/administrar-viajes.module').then( m => m.AdministrarViajesPageModule)
+      },
     ]
   }
 ];
