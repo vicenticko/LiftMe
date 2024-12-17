@@ -16,7 +16,7 @@
     <ion-button expand="full" style="--background: rgb(159,183,64,255); margin-top: 10px;" (click)="toViajes()">Tomar el Viaje</ion-button>
 
     <!-- Botón para eliminar el viaje -->
-    <ion-button expand="full" style="--background: rgb(235, 67, 67); margin-top: 10px;" (click)="eliminar(viaje.id)">eliminar el Viaje</ion-button>
+    <ion-button expand="full" style="--background: rgb(235, 67, 67); margin-top: 10px;" (click)="eliminar(viaje.id)" *ngIf="usuario.tipo_usuario === 'Administrador'">eliminar el Viaje</ion-button>
   </ion-card>
 
 </ion-content>
