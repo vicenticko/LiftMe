@@ -9,6 +9,7 @@ import * as L from 'leaflet';
 export class DetalleViajePage implements OnInit {
 
   private map: L.Map | undefined;
+  usuario: any;
 
   constructor() { }
 
