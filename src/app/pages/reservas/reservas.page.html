@@ -67,16 +67,23 @@
             Conductor: {{ v.conductor }}
           </ion-note>
         </ion-label>
-
+    
         <div class="metadata-end-wrapper" slot="end">
-          <ion-note color="medium" class="precio-viaje">${{ v.valor }}</ion-note>
+          <!-- Precio en pesos chilenos -->
+          <ion-note color="medium" class="precio-viaje">${{ v.valor }} CLP</ion-note>
+          <br />
+          <!-- Precio en dólares -->
+          <ion-note color="secondary" class="precio-viaje">
+            ≈ ${{ calcularPrecioEnDolares(v.valor) }} USD
+          </ion-note>
         </div>
-
+    
         <ion-button (click)="goToDetalleReserva(v.id, v.latitud, v.longitud)" class="detalle-btn" fill="clear">
           Ver Detalle
         </ion-button>
       </ion-item>
     </ion-list>
+    
 
     <ion-text color="medium" *ngIf="viajes && viajes.length === 0" class="empty-message">
       No hay viajes disponibles en este momento.

@@ -7,6 +7,7 @@ import 'leaflet-routing-machine';
 import { ViajeService } from 'src/app/services/viaje.service';
 import { NavController, AlertController } from '@ionic/angular';
 import { FireViajeService } from 'src/app/services/fire-viaje.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-reservas',
@@ -20,6 +21,7 @@ export class ReservasPage implements OnInit {
   private routingControl: any; // Control de rutas
   usuario: any;
   tieneViajeActivo: boolean = false;
+  valorDolar: number = 0;
 
   // Definir tarifa por kilómetro
   private tarifaPorKilometro = 800; // Tarifa a 800 unidades monetarias por kilómetro
@@ -45,17 +47,31 @@ export class ReservasPage implements OnInit {
     //private viajeService: ViajeService,
     private fireViajeService: FireViajeService, 
     private navController: NavController,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private http: HttpClient
   ) { }
 
   async ngOnInit() {
     this.usuario = JSON.parse(localStorage.getItem("usuario") || '');
     this.viaje.controls.conductor.setValue(this.usuario.nombre);
     this.viaje.controls.asientos_disp.setValue(this.usuario.capacidad_asientos);
+    await this.obtenerValorDolar();
     await this.rescatarViajes(); // Asegúrate de rescatar los viajes cuando se inicie la página.
   }
 
-  
+  async obtenerValorDolar() {
+    try {
+      const response: any = await this.http.get('https://mindicador.cl/api/dolar').toPromise();
+      this.valorDolar = response.serie[0].valor; // Obtén el valor más reciente del dólar
+      console.log(`Valor del dólar: ${this.valorDolar}`);
+    } catch (error) {
+      console.error('Error al obtener el valor del dólar', error);
+    }
+  }
+
+  calcularPrecioEnDolares(valorCLP: number): number {
+    return Number((valorCLP / this.valorDolar).toFixed(2)); // Convertir a número después de toFixed()
+  }
 
   initMap() {
 
